@@ -1,0 +1,16 @@
+.LanguageSwitcher {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.LanguageIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.LanguageButton {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 4px;
+}
