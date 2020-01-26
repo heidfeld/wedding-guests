@@ -4,13 +4,24 @@ import {Group, Text, Circle} from 'react-konva';
 
 const RoundTable = (props) => {
 
-    const {radius, chairs, label} = props;
+    const {radius, chairs, label, id, updateSelection, isSelected} = props;
+
+    const handleSelection = (evt) => {
+        const {evt: {ctrlKey} = {}} = evt;
+        if (ctrlKey === true) {
+            updateSelection(id, true);
+        }
+        updateSelection(id);
+        evt.cancelBubble = true;
+    }
+
+    const selected = isSelected(id);
 
     return (
-        <Group x={200} y={200} draggable={true}>
+        <Group x={200} y={200} draggable={true} onClick={handleSelection}>
             <Circle
-                stroke={'black'}
-                strokeWidth={1}
+                stroke={selected === true ? 'blue' : 'black'}
+                strokeWidth={selected === true ? 3 : 1}
                 radius={radius}
                 fill={'white'}
             />
@@ -37,10 +48,13 @@ RoundTable.defaultProps = {
 };
 
 RoundTable.propTypes = {
+    id: PropTypes.string.isRequired,
     label: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,
-    chairs: PropTypes.arrayOf(PropTypes.element)
+    chairs: PropTypes.arrayOf(PropTypes.element),
+    updateSelection: PropTypes.func.isRequired,
+    isSelected: PropTypes.func.isRequired
 };
 
 export default RoundTable;
