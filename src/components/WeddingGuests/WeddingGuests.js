@@ -35,7 +35,7 @@ const WeddingGuests = (props) => {
         const {id, label, type, chairs = []} = config;
         const radius = 80;
         const allChairs = chairs.map((chair, idx) => {
-            return renderChair({...chair, idx, max: chairs.length, radius});
+            return renderChair({...chair, idx, max: chairs.length, radius: radius + 10});
         });
 
         return (

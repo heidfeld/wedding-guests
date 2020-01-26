@@ -15,7 +15,7 @@ const Chair = (props) => {
                     strokeWidth={1}
                     width={size}
                     height={size / 5}
-                    fill={'gray'}
+                    fill={'lightgray'}
                     x={0}
                     y={0}
                     radius={radius}
