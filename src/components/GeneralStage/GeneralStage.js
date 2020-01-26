@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import {Stage, Layer} from "react-konva";
+import PropTypes from 'prop-types';
 
 import WeddingGuests from "../WeddingGuests/WeddingGuests";
+import ContextMenu from "../ContextMenu/ContextMenu";
 import "./css/GeneralStage.css";
 
 const GeneralStage = (props) => {
+
+    const {t} = props;
 
     const [data, setData] = useState({
         "t1": {
@@ -33,16 +37,26 @@ const GeneralStage = (props) => {
         } else {
             setSelection([]);
         }
-    }
+    };
 
     const isSelected = (key) => {
         const selected = key ? !!~selection.indexOf(key) : false;
         console.log(key + ' selected: ' + selected);
         return selected === true;
-    }
+    };
+
+    const withMenu = () => {
+        return selection.length === 1;
+    };
+
+    const getFirstSelected = () => {
+        const firstSelected = selection.find(entity => entity);
+        return data[firstSelected];
+    };
 
     return (
         <div>
+            {withMenu() === true ? <ContextMenu data={getFirstSelected()} t={t}/> : null}
             <div id="container"/>
             <Stage width={1200} height={800} fill={'blue'} container={'container'} onClick={() => updateSelection()}>
                 <Layer>
@@ -55,6 +69,10 @@ const GeneralStage = (props) => {
             </Stage>
         </div>
     );
-}
+};
+
+GeneralStage.propTypes = {
+    t: PropTypes.func
+};
 
 export default GeneralStage;

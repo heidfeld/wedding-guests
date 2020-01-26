@@ -28,8 +28,7 @@ const WeddingGuests = (props) => {
                 label={label}
             />
         );
-
-    }
+    };
 
     const renderTable = (config) => {
         const {id, label, type, chairs = []} = config;

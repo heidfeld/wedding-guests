@@ -13,7 +13,7 @@ const RoundTable = (props) => {
         }
         updateSelection(id);
         evt.cancelBubble = true;
-    }
+    };
 
     const selected = isSelected(id);
 

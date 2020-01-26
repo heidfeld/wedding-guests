@@ -26,7 +26,6 @@ class App extends Component {
                 <div className="App-header">
                     <LanguageSwitcher onClick={this.handleLanguage}/>
                     <button>{t('buttons.addTable')}</button>
-                    <button>{t('buttons.removeTable')}</button>
                 </div>
                 <GeneralStage {...this.props} />
             </div>
