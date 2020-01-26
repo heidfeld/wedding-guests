@@ -10,7 +10,17 @@ const GeneralStage = (props) => {
         "t1": {
             id: "t1",
             label: "Stolik Pierwszy",
-            type: "RoundTable"
+            type: "RoundTable",
+            chairs: [
+                {id: "ch1", label: "Chair1", type: "RoundChair"},
+                {id: "ch2", label: "Chair2", type: "RoundChair"},
+                {id: "ch3", label: "Chair3", type: "RoundChair"},
+                {id: "ch4", label: "Chair4", type: "RoundChair"},
+                {id: "ch5", label: "Chair5", type: "RoundChair"},
+                {id: "ch6", label: "Chair6", type: "RoundChair"},
+                {id: "ch7", label: "Chair7", type: "RoundChair"},
+                {id: "ch8", label: "Chair8", type: "RoundChair"}
+            ]
         }
     });
     const [selection, setSelection] = useState([]);

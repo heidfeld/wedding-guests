@@ -2,19 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Circle} from 'react-konva';
 
-import {generateAllChairs} from "./ChairGenerator";
 import RoundTable from "../RoundTable/RoundTable";
+import Chair from "../Chair/Chair";
 
 const WeddingGuests = (props) => {
 
     const {data, isSelected, updateSelection} = props;
 
-    const renderChair = () => {
+    const degToRad = (deg) => {
+        return deg * (Math.PI / 180);
+    };
+
+    const renderChair = (config) => {
+        const {id, label, type, idx, max, radius} = config;
+
+        const angle = idx * 360 / max;
+        const radians = degToRad(angle - 90);
+        const x = (radius) * Math.cos(radians);
+        const y = (radius) * Math.sin(radians);
+        return (
+            <Chair
+                x={x}
+                y={y}
+                rotation={angle}
+                label={label}
+            />
+        );
+
     }
 
     const renderTable = (config) => {
-
-        const {id, label, type} = config;
+        const {id, label, type, chairs = []} = config;
+        const radius = 80;
+        const allChairs = chairs.map((chair, idx) => {
+            return renderChair({...chair, idx, max: chairs.length, radius});
+        });
 
         return (
             <RoundTable
@@ -22,7 +44,8 @@ const WeddingGuests = (props) => {
                 isSelected={isSelected}
                 updateSelection={updateSelection}
                 label={label}
-                chairs={generateAllChairs(10)}
+                chairs={allChairs}
+                radius={radius}
             />
         );
     };
