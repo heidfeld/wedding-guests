@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Group, Text, Rect} from 'react-konva';
+import {Group, Text, Circle} from 'react-konva';
 
 const Chair = (props) => {
 
     const {size, label, rotation, x, y} = props;
 
+    const radius = 15;
+
     return (
         <Group x={x} y={y} draggable={true} >
-            <Group rotation={rotation}>
-                <Rect
+                <Circle
                     stroke={'black'}
                     strokeWidth={1}
                     width={size}
@@ -17,24 +18,17 @@ const Chair = (props) => {
                     fill={'gray'}
                     x={0}
                     y={0}
+                    radius={radius}
                 />
-                <Rect
-                    stroke={'black'}
-                    strokeWidth={1}
-                    width={size}
-                    height={size - (size / 5)}
-                    x={0}
-                    y={size / 5}
-                    fill={'white'}
-                />
-            </Group>
             <Text
                 text={label}
-                fontSize={12}
+                fontSize={10}
                 align={'center'}
                 verticalAlign={'middle'}
-                x={0}
-                y={rotation > 180 ? 0 : -12}
+                width={radius * 2}
+                height={radius * 2}
+                x={-radius}
+                y={-radius}
             />
         </Group>
     );

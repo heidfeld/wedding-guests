@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import {Stage, Layer} from "react-konva";
 
-import RoundTable from "../RoundTable/RoundTable";
-import {generateAllChairs} from "./ChairGenerator";
+import WeddingGuests from "../WeddingGuests/WeddingGuests";
 import "./css/GeneralStage.css";
 
 const GeneralStage = (props) => {
 
+    const [data, setData] = useState({
+        "t1": {
+            id: "t1",
+            label: "Stolik Pierwszy",
+            type: "RoundTable"
+        }
+    });
     const [selection, setSelection] = useState([]);
 
     const updateSelection = (key, append = false) => {
@@ -30,10 +36,11 @@ const GeneralStage = (props) => {
             <div id="container"/>
             <Stage width={1200} height={800} fill={'blue'} container={'container'} onClick={() => updateSelection()}>
                 <Layer>
-                    <RoundTable id={'t1'} isSelected={isSelected} updateSelection={updateSelection} label={'Stolik 1'} chairs={generateAllChairs(8)}/>
-                    <RoundTable id={'t2'} isSelected={isSelected} updateSelection={updateSelection} label={'Stolik 2'} chairs={generateAllChairs(2)}/>
-                    <RoundTable id={'t3'} isSelected={isSelected} updateSelection={updateSelection} label={'Stolik 3'} chairs={generateAllChairs(10)}/>
-                    <RoundTable id={'t4'} isSelected={isSelected} updateSelection={updateSelection} label={'Stolik 4'} chairs={generateAllChairs(4)}/>
+                    <WeddingGuests
+                        data={Object.values(data)}
+                        updateSelection={updateSelection}
+                        isSelected={isSelected}
+                    />
                 </Layer>
             </Stage>
         </div>

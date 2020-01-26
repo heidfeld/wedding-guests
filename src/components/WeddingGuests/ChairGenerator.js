@@ -21,8 +21,8 @@ const prepareChair = (index, max, label, radius = 80) => {
     const angle = index * 360 / max;
     const radians = degToRad(angle - 90);
 
-    const x = (radius + 20) * Math.cos(radians);
-    const y = (radius + 20) * Math.sin(radians);
+    const x = (radius) * Math.cos(radians);
+    const y = (radius) * Math.sin(radians);
 
     const properties = {rotation: angle, x, y, label};
     return renderChair(properties);
