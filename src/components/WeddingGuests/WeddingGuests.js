@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Group, Text, Circle} from 'react-konva';
+import {Group} from 'react-konva';
 
 import RoundTable from "../RoundTable/RoundTable";
 import Chair from "../Chair/Chair";
+import {isChair, isTable} from "./TypeConstants";
 
 const WeddingGuests = (props) => {
 
@@ -22,6 +22,10 @@ const WeddingGuests = (props) => {
         const y = (radius) * Math.sin(radians);
         return (
             <Chair
+                id={id}
+                type={type}
+                isSelected={isSelected}
+                updateSelection={updateSelection}
                 x={x}
                 y={y}
                 rotation={angle}
@@ -30,9 +34,18 @@ const WeddingGuests = (props) => {
         );
     };
 
+    const getAllTables = () => {
+        return Object.values(data).filter(({type}) => isTable(type));
+    };
+
+    const getAllChairs = (parentId) => {
+        return Object.values(data).filter(({parent, type}) => parent && parent === parentId && isChair(type));
+    };
+
     const renderTable = (config) => {
-        const {id, label, type, chairs = []} = config;
+        const {id, label, type} = config;
         const radius = 80;
+        const chairs = getAllChairs(id);
         const allChairs = chairs.map((chair, idx) => {
             return renderChair({...chair, idx, max: chairs.length, radius: radius + 10});
         });
@@ -40,6 +53,7 @@ const WeddingGuests = (props) => {
         return (
             <RoundTable
                 id={id}
+                type={type}
                 isSelected={isSelected}
                 updateSelection={updateSelection}
                 label={label}
@@ -51,7 +65,7 @@ const WeddingGuests = (props) => {
 
     return (
         <Group>
-            {data.map(table => renderTable(table))}
+            {getAllTables().map(table => renderTable(table))}
         </Group>
     );
 

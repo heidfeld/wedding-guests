@@ -1,8 +1,3 @@
-export const ROUND_TABLE = 'RoundTable';
-export const TABLE = 'Table';
-export const ROUND_CHAIR = 'RoundChair';
-export const CHAIR = 'Chair';
-
 export const TYPES = {
     ROUND_TABLE: 'RoundTable',
     TABLE: 'Table',
@@ -11,7 +6,15 @@ export const TYPES = {
 };
 
 export const TABLE_SIZE = {
-    RADIUS_LARGE = 100,
-    RADIUS_MEDIUM = 75,
-    RADIUS_SMALL = 50
+    RADIUS_LARGE: 100,
+    RADIUS_MEDIUM: 75,
+    RADIUS_SMALL: 50
+};
+
+export const isTable = (type) => {
+    return type === TYPES.ROUND_TABLE || type === TYPES.TABLE;
+};
+
+export const isChair = (type) => {
+    return type === TYPES.ROUND_CHAIR || type === TYPES.CHAIR;
 };

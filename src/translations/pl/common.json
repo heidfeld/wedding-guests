@@ -2,6 +2,8 @@
   "footer": "znajdz-fale.pl / 2019 / wszelkie prawa zastrzeżone",
   "buttons" : {
     "addTable": "Dodaj Stolik",
-    "removeTable": "Usuń Stolik"
+    "addChair": "Dodaj Krzesło",
+    "removeTable": "Usuń Stolik",
+    "removeChair": "Usuń Krzesło"
   }
 }
