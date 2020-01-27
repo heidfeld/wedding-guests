@@ -6,11 +6,15 @@ import {isChair, isTable} from "../WeddingGuests/TypeConstants";
 
 const ContextMenu = (props) => {
 
-    const {data = {}, t, onRemove} = props;
+    const {data = {}, t, onRemove, onAdd} = props;
     const {id, label, type} = data;
 
     const handleRemove = (evt) => {
         onRemove(evt, data);
+    };
+
+    const handleAdd = (evt) => {
+        onAdd(evt, data);
     };
 
     const renderTableButtons = () => {
@@ -18,6 +22,7 @@ const ContextMenu = (props) => {
             <div>
                 <span>{`${label}`}</span>
                 <button onClick={handleRemove}>{t('buttons.removeTable')}</button>
+                <button onClick={handleAdd}>{t('buttons.addChair')}</button>
             </div>
         );
     };
@@ -55,7 +60,8 @@ ContextMenu.propTypes = {
         type: PropTypes.string
     }),
     t: PropTypes.func,
-    onRemove: PropTypes.func.isRequired
+    onRemove: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired
 };
 
 export default ContextMenu;

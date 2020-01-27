@@ -1,0 +1,6 @@
+.DefaultMenu {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    z-index: 1;
+}
