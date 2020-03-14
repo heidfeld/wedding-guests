@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './css/DefaultMenu.css';
+import ReactTooltip from "react-tooltip";
 
 const DefaultMenu = (props) => {
 
@@ -13,7 +14,10 @@ const DefaultMenu = (props) => {
 
     return (
         <div className='ContextMenu'>
-            <button onClick={handleAdd}>{t('buttons.addTable')}</button>
+            <ReactTooltip/>
+            <button data-tip={t('buttons.addTable')} className='btn btn-primary' onClick={handleAdd}>
+                <i className="fa fa-plus" aria-hidden="true"/>
+            </button>
         </div>
     );
 

@@ -13,7 +13,7 @@ const GeneralStage = (props) => {
     const {t} = props;
 
     const [data, setData] = useState({
-        "t1": {id: "t1", label: "Stolik Pierwszy", type: TYPES.ROUND_TABLE},
+        "t1": {id: "t1", label: "Stolik Pierwszy", type: TYPES.ROUND_TABLE, x: 200, y: 200},
         "ch1": {id: "ch1", label: "Chair1", type: TYPES.ROUND_CHAIR, parent: "t1"},
         "ch2": {id: "ch2", label: "Chair2", type: TYPES.ROUND_CHAIR, parent: "t1"},
         "ch3": {id: "ch3", label: "Chair3", type: TYPES.ROUND_CHAIR, parent: "t1"},
@@ -31,6 +31,16 @@ const GeneralStage = (props) => {
         };
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     };
+
+    const updateData = (id, properties = {}) => {
+        const dataCopy = {...data};
+        const cachedElement = dataCopy[id];
+        if (id && cachedElement) {
+            dataCopy[id] = {...cachedElement, ...properties};
+            setData(dataCopy)
+        }
+    };
+
 
     const updateSelection = (id, append = false) => {
         if (id && append === true) {
@@ -76,7 +86,9 @@ const GeneralStage = (props) => {
         const tableConfig = {
             id: randomId,
             label: "Table",
-            type: TYPES.ROUND_TABLE
+            type: TYPES.ROUND_TABLE,
+            x: 200,
+            y: 200
         };
         const newData = {...data, [randomId]: tableConfig};
         setData(newData);
@@ -133,6 +145,7 @@ const GeneralStage = (props) => {
                         data={Object.values(data)}
                         updateSelection={updateSelection}
                         isSelected={isSelected}
+                        updateData={updateData}
                     />
                 </Layer>
             </Stage>

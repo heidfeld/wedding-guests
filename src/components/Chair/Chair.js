@@ -1,10 +1,27 @@
-import React from 'react';
+import React, {memo, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Circle} from 'react-konva';
 
 const Chair = (props) => {
 
-    const {id, size, label, rotation, x, y, updateSelection, isSelected} = props;
+    const {id, size, label, x, y, updateSelection, isSelected, updateData} = props;
+
+    const shapeRef = useRef(null);
+
+    const updatePositions = () => {
+        const {current: shape} = shapeRef;
+        if (shape) {
+            updateData(id, {x: Math.round(shape.x()), y: Math.round(shape.y())})
+        }
+    };
+
+    useEffect(() => {
+        updatePositions();
+    }, []);
+
+    const handleDragEnd = () => {
+        updatePositions();
+    };
 
     const handleSelection = (evt) => {
         const {evt: {ctrlKey} = {}} = evt;
@@ -19,7 +36,7 @@ const Chair = (props) => {
     const selected = isSelected(id);
 
     return (
-        <Group x={x} y={y} draggable={true} onClick={handleSelection}>
+        <Group x={x} y={y} draggable={true} onClick={handleSelection} onDragEnd={handleDragEnd} ref={shapeRef}>
                 <Circle
                     stroke={selected === true ? 'blue' : 'black'}
                     strokeWidth={selected === true ? 3 : 1}
@@ -57,7 +74,8 @@ Chair.propTypes = {
     y: PropTypes.number,
     size: PropTypes.number,
     updateSelection: PropTypes.func.isRequired,
-    isSelected: PropTypes.func.isRequired
+    isSelected: PropTypes.func.isRequired,
+    updateData: PropTypes.func.isRequired
 };
 
-export default Chair;
+export default memo(Chair);

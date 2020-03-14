@@ -1,10 +1,27 @@
-import React from 'react';
+import React, {useEffect, memo, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Circle} from 'react-konva';
 
 const RoundTable = (props) => {
 
-    const {radius, chairs, label, id, updateSelection, isSelected} = props;
+    const {x = 0, y = 0, radius, chairs, label, id, updateSelection, isSelected, updateData} = props;
+
+    const shapeRef = useRef(null);
+
+    const updatePositions = () => {
+        const {current: shape} = shapeRef;
+        if (shape) {
+            updateData(id, {x: Math.round(shape.x()), y: Math.round(shape.y())})
+        }
+    };
+
+    useEffect(() => {
+        updatePositions();
+    }, []);
+
+    const handleDragEnd = () => {
+        updatePositions();
+    };
 
     const handleSelection = (evt) => {
         const {evt: {ctrlKey} = {}} = evt;
@@ -18,7 +35,7 @@ const RoundTable = (props) => {
     const selected = isSelected(id);
 
     return (
-        <Group x={200} y={200} draggable={true} onClick={handleSelection}>
+        <Group x={x} y={y} draggable={true} onClick={handleSelection} onDragEnd={handleDragEnd} ref={shapeRef}>
             <Circle
                 stroke={selected === true ? 'blue' : 'black'}
                 strokeWidth={selected === true ? 3 : 1}
@@ -54,7 +71,8 @@ RoundTable.propTypes = {
     y: PropTypes.number,
     chairs: PropTypes.arrayOf(PropTypes.element),
     updateSelection: PropTypes.func.isRequired,
-    isSelected: PropTypes.func.isRequired
+    isSelected: PropTypes.func.isRequired,
+    updateData: PropTypes.func.isRequired
 };
 
-export default RoundTable;
+export default memo(RoundTable);
