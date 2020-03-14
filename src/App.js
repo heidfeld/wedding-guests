@@ -20,7 +20,6 @@ class App extends Component {
     }
 
     render() {
-        const {t} = this.props;
         return (
             <div className="App">
                 <div className="App-header">

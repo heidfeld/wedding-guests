@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {Stage, Layer} from "react-konva";
 import PropTypes from 'prop-types';
 
-import WeddingGuests from "../WeddingGuests/WeddingGuests";
-import {isTable, TYPES} from "../WeddingGuests/TypeConstants";
-import ContextMenu from "../ContextMenu/ContextMenu";
-import "./css/GeneralStage.css";
-import DefaultMenu from "../ContextMenu/DefaultMenu";
+import WeddingGuests from '../WeddingGuests/WeddingGuests';
+import {isTable, TYPES} from '../WeddingGuests/TypeConstants';
+import ContextMenu from '../ContextMenu/ContextMenu';
+import './css/GeneralStage.css';
+import DefaultMenu from '../ContextMenu/DefaultMenu';
+import {getAllChairs} from './DataHelper';
 
 const GeneralStage = (props) => {
 
@@ -32,13 +33,35 @@ const GeneralStage = (props) => {
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     };
 
-    const updateData = (id, properties = {}) => {
-        const dataCopy = {...data};
-        const cachedElement = dataCopy[id];
-        if (id && cachedElement) {
-            dataCopy[id] = {...cachedElement, ...properties};
-            setData(dataCopy)
-        }
+    const updateChairs = (id, prevData, properties) => {
+        const {absX, absY} = properties;
+        const {absX: prevAbsX, absY: prevAbsY} = prevData[id];
+        const chairs = getAllChairs(prevData, id);
+        chairs.forEach((chair) => {
+            const {id: chairId, absX: chAbsX, absY: chAbsY} = chair;
+            prevData[chairId] = {
+                ...chair,
+                absX: chAbsX + absX - prevAbsX,
+                absY: chAbsY + absY - prevAbsY
+            };
+        });
+
+    };
+
+    const updateData = (id, properties = {}, updateChildren = false) => {
+        setData((prevData) => {
+            const dataCopy = {...prevData};
+            const cachedElement = dataCopy[id];
+            if (id && cachedElement) {
+                const {type} = cachedElement;
+                if (updateChildren && isTable(type)) {
+                    updateChairs(id, dataCopy, properties);
+                }
+                dataCopy[id] = {...cachedElement, ...properties};
+                return dataCopy;
+            }
+            return prevData;
+        });
     };
 
 

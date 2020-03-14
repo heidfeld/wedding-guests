@@ -2,41 +2,34 @@ import React, {memo, useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Circle} from 'react-konva';
 
+import {updateElement, handleSelection} from '../js/DiagramElementsHelper';
+
 const Chair = (props) => {
 
     const {id, size, label, x, y, updateSelection, isSelected, updateData} = props;
 
     const shapeRef = useRef(null);
 
-    const updatePositions = () => {
-        const {current: shape} = shapeRef;
-        if (shape) {
-            updateData(id, {x: Math.round(shape.x()), y: Math.round(shape.y())})
-        }
-    };
-
     useEffect(() => {
-        updatePositions();
-    }, []);
+        updateElement(id, updateData, shapeRef, {});
+    }, [x, y]);
 
     const handleDragEnd = () => {
-        updatePositions();
-    };
-
-    const handleSelection = (evt) => {
-        const {evt: {ctrlKey} = {}} = evt;
-        if (ctrlKey === true) {
-            updateSelection(id, true);
-        }
-        updateSelection(id);
-        evt.cancelBubble = true;
+        updateElement(id, updateData, shapeRef, {});
     };
 
     const radius = 15;
     const selected = isSelected(id);
 
     return (
-        <Group x={x} y={y} draggable={true} onClick={handleSelection} onDragEnd={handleDragEnd} ref={shapeRef}>
+        <Group
+            x={x}
+            y={y}
+            draggable={true}
+            onClick={(evt) => handleSelection(id, updateSelection, evt)}
+            onDragEnd={handleDragEnd}
+            ref={shapeRef}
+        >
                 <Circle
                     stroke={selected === true ? 'blue' : 'black'}
                     strokeWidth={selected === true ? 3 : 1}

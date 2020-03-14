@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Group} from 'react-konva';
 
-import RoundTable from "../RoundTable/RoundTable";
-import Chair from "../Chair/Chair";
-import {isChair, isTable} from "./TypeConstants";
+import RoundTable from '../DiagramElements/RoundTable/RoundTable';
+import Chair from '../DiagramElements/Chair/Chair';
+import {getAllChairs, getAllTables} from '../GeneralStage/DataHelper';
 
 const WeddingGuests = (props) => {
 
@@ -15,7 +15,7 @@ const WeddingGuests = (props) => {
     };
 
     const renderChair = (config) => {
-        const {id, label, type, idx, max, radius, x, y} = config;
+        const {id, label, type, idx, max, radius} = config;
 
         const angle = idx * 360 / max;
         const radians = degToRad(angle - 90);
@@ -28,8 +28,8 @@ const WeddingGuests = (props) => {
                 type={type}
                 isSelected={isSelected}
                 updateSelection={updateSelection}
-                x={typeof x !== 'undefined' ? x : calculatedX}
-                y={typeof y !== 'undefined' ? y : calculatedY}
+                x={calculatedX}
+                y={calculatedY}
                 rotation={angle}
                 label={label}
                 updateData={updateData}
@@ -37,18 +37,10 @@ const WeddingGuests = (props) => {
         );
     };
 
-    const getAllTables = () => {
-        return Object.values(data).filter(({type}) => isTable(type));
-    };
-
-    const getAllChairs = (parentId) => {
-        return Object.values(data).filter(({parent, type}) => parent && parent === parentId && isChair(type));
-    };
-
     const renderTable = (config) => {
         const {id, label, type, x, y} = config;
         const radius = 80;
-        const chairs = getAllChairs(id);
+        const chairs = getAllChairs(data, id);
         const allChairs = chairs.map((chair, idx) => {
             return renderChair({...chair, idx, max: chairs.length, radius: radius + 10});
         });
@@ -72,7 +64,7 @@ const WeddingGuests = (props) => {
 
     return (
         <Group>
-            {getAllTables().map(table => renderTable(table))}
+            {getAllTables(data).map(table => renderTable(table))}
         </Group>
     );
 
