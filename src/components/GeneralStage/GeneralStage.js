@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {Stage, Layer} from "react-konva";
 import PropTypes from 'prop-types';
 
@@ -8,6 +8,8 @@ import ContextMenu from '../ContextMenu/ContextMenu';
 import './css/GeneralStage.css';
 import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
+import DockedPanel, {PANEL_SIDE} from "../DockedPanel/DockedPanel";
+import GuestTable from '../GuestTable/GuestTable';
 
 const GeneralStage = (props) => {
 
@@ -26,9 +28,20 @@ const GeneralStage = (props) => {
     });
     const [selection, setSelection] = useState([]);
 
+    const [size, setSize] = useState([0, 0]);
+
+    useLayoutEffect(() => {
+        const updateSize = () => {
+            setSize([window.innerWidth, window.innerHeight]);
+        };
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+
     const guid = () => {
         const S4 = () => {
-            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         };
         return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     };
@@ -158,11 +171,25 @@ const GeneralStage = (props) => {
         );
     };
 
+    const renderGuestTable = () => {
+        return (
+            <GuestTable/>
+        );
+    };
+
+    const [width, height] = size;
+
     return (
         <div>
+            <DockedPanel component={renderGuestTable()} side={PANEL_SIDE.RIGHT}/>
             {withMenu() === true ? renderContextMenu() : renderDefaultMenu()}
             <div id="container"/>
-            <Stage width={1200} height={800} fill={'blue'} container={'container'} onClick={() => updateSelection()}>
+            <Stage
+                width={width}
+                height={height}
+                fill={'blue'}
+                container={'container'}
+                onClick={() => updateSelection()}>
                 <Layer>
                     <WeddingGuests
                         data={Object.values(data)}
