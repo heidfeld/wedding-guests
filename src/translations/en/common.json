@@ -1,9 +1,19 @@
 {
-  "footer": "znajdz-fale.pl / 2019 / all rights reserved",
-  "buttons" : {
+  "footer": "Footer",
+  "data": {
+    "guest": "Guest"
+  },
+  "buttons": {
     "addTable": "Add Table",
     "addChair": "Add Chair",
     "removeTable": "Remove Table",
     "removeChair": "Remove Chair"
+  },
+  "table": {
+    "headers": {
+      "name": "Name",
+      "surname": "Surname",
+      "table": "Table"
+    }
   }
 }

@@ -17,14 +17,14 @@ const GeneralStage = (props) => {
 
     const [data, setData] = useState({
         "t1": {id: "t1", label: "Stolik Pierwszy", type: TYPES.ROUND_TABLE, x: 200, y: 200},
-        "ch1": {id: "ch1", label: "Chair1", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch2": {id: "ch2", label: "Chair2", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch3": {id: "ch3", label: "Chair3", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch4": {id: "ch4", label: "Chair4", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch5": {id: "ch5", label: "Chair5", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch6": {id: "ch6", label: "Chair6", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch7": {id: "ch7", label: "Chair7", type: TYPES.ROUND_CHAIR, parent: "t1"},
-        "ch8": {id: "ch8", label: "Chair8", type: TYPES.ROUND_CHAIR, parent: "t1"}
+        "ch1": {id: "ch1", name: "Adam", surname: "Nowak", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch2": {id: "ch2", name: "Tomasz", surname: "Biały", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch3": {id: "ch3", name: "Marta", surname: "Kowalska", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch4": {id: "ch4", name: "Wiesław", surname: "Wszywka", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch5": {id: "ch5", name: "Beata", surname: "Cieślak", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch6": {id: "ch6", name: "Krystian", surname: "Bielik", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch7": {id: "ch7", name: "Robert", surname: "Lewandowski", type: TYPES.ROUND_CHAIR, parent: "t1"},
+        "ch8": {id: "ch8", name: "Damian", surname: "Nowak", type: TYPES.ROUND_CHAIR, parent: "t1"}
     });
     const [selection, setSelection] = useState([]);
 
@@ -134,7 +134,7 @@ const GeneralStage = (props) => {
         const randomId = guid();
         const chairConfig = {
             id: randomId,
-            label: "Chair",
+            name: `${t('data.guest')} ${getAllChairs(data).length + 1}`,
             type: TYPES.ROUND_CHAIR,
             parent: parentId
         };
@@ -173,7 +173,7 @@ const GeneralStage = (props) => {
 
     const renderGuestTable = () => {
         return (
-            <GuestTable/>
+            <GuestTable t={t} tableData={data}/>
         );
     };
 

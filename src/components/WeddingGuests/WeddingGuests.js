@@ -15,7 +15,7 @@ const WeddingGuests = (props) => {
     };
 
     const renderChair = (config) => {
-        const {id, label, type, idx, max, radius} = config;
+        const {id, name = '', surname = '', type, idx, max, radius} = config;
 
         const angle = idx * 360 / max;
         const radians = degToRad(angle - 90);
@@ -31,7 +31,7 @@ const WeddingGuests = (props) => {
                 x={calculatedX}
                 y={calculatedY}
                 rotation={angle}
-                label={label}
+                label={`${name} ${surname}`}
                 updateData={updateData}
             />
         );

@@ -1,9 +1,19 @@
 {
-  "footer": "znajdz-fale.pl / 2019 / wszelkie prawa zastrzeżone",
+  "footer": "Stopka",
+  "data": {
+    "guest": "Gość"
+  },
   "buttons" : {
     "addTable": "Dodaj Stolik",
     "addChair": "Dodaj Krzesło",
     "removeTable": "Usuń Stolik",
     "removeChair": "Usuń Krzesło"
+  },
+  "table": {
+    "headers": {
+      "name": "Imię",
+      "surname": "Nazwisko",
+      "table": "Stolik"
+    }
   }
 }

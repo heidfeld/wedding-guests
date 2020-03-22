@@ -5,5 +5,8 @@ export const getAllTables = (data) => {
 };
 
 export const getAllChairs = (data, parentId) => {
-    return Object.values(data).filter(({parent, type}) => parent && parent === parentId && isChair(type));
+    if (parentId) {
+        return Object.values(data).filter(({parent, type}) => parent && parent === parentId && isChair(type));
+    }
+    return Object.values(data).filter(({type}) => isChair(type));
 };
