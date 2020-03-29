@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
-import {useTable} from 'react-table';
+import {useTable, useBlockLayout} from 'react-table';
+import {useSticky} from 'react-table-sticky';
 
 import {getAllChairs} from "../GeneralStage/DataHelper";
 import './less/EditableTable.less';
@@ -46,13 +47,17 @@ const EditableTable = (props) => {
         headerGroups,
         rows,
         prepareRow,
-    } = useTable({
-        columns,
-        data,
-    });
+    } = useTable(
+        {
+            columns,
+            data,
+        },
+        useBlockLayout,
+        useSticky
+    );
 
     return (
-        <table {...getTableProps()}>
+        <table className={'EditableTable'} {...getTableProps()}>
             <thead>
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>

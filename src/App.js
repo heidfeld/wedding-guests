@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withTranslation} from 'react-i18next';
 
-import './App.css';
+import './App.less';
 import GeneralStage from "./components/GeneralStage/GeneralStage";
 import LanguageSwitcher from "./components/LanguageSwitcher/LanguageSwitcher";
 
@@ -23,6 +23,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="App-header">
+                    <span>Wedding Guests</span>
                     <LanguageSwitcher onClick={this.handleLanguage}/>
                 </div>
                 <GeneralStage {...this.props} />

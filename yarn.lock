@@ -8361,6 +8361,11 @@ react-scripts@0.9.x:
   optionalDependencies:
     fsevents "1.0.17"
 
+react-table-sticky@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-table-sticky/-/react-table-sticky-1.1.2.tgz#0f23453271a72fe9d05564e123f352ea69bf72f7"
+  integrity sha512-XnVB4Yf6r8L10YC0Ccu2GrY57IxVWofy19m7s8+q5xzZOudYvyADXsBj6+EenHOvBWTYSviLe8RfaLFIp1lC9w==
+
 react-table@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.0.0.tgz#3297e454cbffe916626b184f5394d7e7e098fa36"
