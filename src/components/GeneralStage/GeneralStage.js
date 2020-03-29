@@ -10,6 +10,7 @@ import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
 import DockedPanel, {PANEL_SIDE} from "../DockedPanel/DockedPanel";
 import EditableTable from '../EditableTable/EditableTable';
+import cache from "less/lib/less-browser/cache";
 
 const GeneralStage = (props) => {
 
@@ -94,8 +95,18 @@ const GeneralStage = (props) => {
 
     const removeElement = (id) => {
         const dataCopy = {...data};
-        if (dataCopy[id]) {
+        const cachedElement = dataCopy[id];
+        const {type} = cachedElement;
+        if (cachedElement) {
             delete dataCopy[id];
+            if (isTable(type)) {
+                getAllChairs(dataCopy, id).forEach(chair => {
+                    const {id: chairId} = chair;
+                    if (chairId && dataCopy[chairId]) {
+                        delete dataCopy[chairId];
+                    }
+                });
+            }
         }
         setData(dataCopy);
     };
