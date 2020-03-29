@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import WeddingGuests from '../WeddingGuests/WeddingGuests';
 import {isTable, TYPES} from '../WeddingGuests/TypeConstants';
 import ContextMenu from '../ContextMenu/ContextMenu';
-import './css/GeneralStage.css';
+import './less/GeneralStage.less';
 import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
 import DockedPanel, {PANEL_SIDE} from "../DockedPanel/DockedPanel";
-import GuestTable from '../GuestTable/GuestTable';
+import EditableTable from '../EditableTable/EditableTable';
 
 const GeneralStage = (props) => {
 
@@ -173,7 +173,7 @@ const GeneralStage = (props) => {
 
     const renderGuestTable = () => {
         return (
-            <GuestTable t={t} tableData={data}/>
+            <EditableTable t={t} tableData={data}/>
         );
     };
 

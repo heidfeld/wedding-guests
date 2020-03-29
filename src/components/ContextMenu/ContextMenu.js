@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
 
-import './css/ContextMenu.css';
+import './less/ContextMenu.less';
 import {isChair, isTable} from "../WeddingGuests/TypeConstants";
 
 const ContextMenu = (props) => {

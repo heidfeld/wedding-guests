@@ -2,10 +2,10 @@ import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
 import {useTable} from 'react-table';
 
-import './css/GuestTable.css';
 import {getAllChairs} from "../GeneralStage/DataHelper";
+import './less/EditableTable.less';
 
-const GuestTable = (props) => {
+const EditableTable = (props) => {
 
     const {t, tableData} = props;
 
@@ -79,9 +79,9 @@ const GuestTable = (props) => {
 
 };
 
-GuestTable.propTypes = {
+EditableTable.propTypes = {
     t: PropTypes.func,
     tableData: PropTypes.shape()
 };
 
-export default GuestTable;
+export default EditableTable;

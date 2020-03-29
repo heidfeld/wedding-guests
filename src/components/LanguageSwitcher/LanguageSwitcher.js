@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './less/LanguageSwitcher.css';
+import './less/LanguageSwitcher.less';
 import icon_pl from './icon/pl.png';
 import icon_en from './icon/en.png';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './css/DockedPanel.css';
+import './less/DockedPanel.less';
 
 export const PANEL_SIDE = {
     LEFT: 'Left',
