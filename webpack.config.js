@@ -19,39 +19,45 @@ module.exports = {
                 ]
             },
             {
-                test: /\.less$/,
+                test: /\.(less|css)$/,
                 use: [
+                        loader: require.resolve('style-loader'),
+                        options: {insertAt: 'top'}
                     {
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: "css-loader",
+                        loader: require.resolve('css-loader'),
                         options: {
                             sourceMap: true,
-                            modules: true,
-                            localIdentName: "[local]___[hash:base64:5]"
+                            importLoaders: 1
                         }
                     },
                     {
-                        loader: "less-loader"
+                        loader: require.resolve('less-loader'),
+                        options: {sourceMap: true}
                     }
-                ]
+                ].filter(loader => loader)
             },
             {
-                test: /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(jpe?g$|gif|png|svg)$/i,
                 use: [
                     {
-                        loader: 'url-loader',
+                        loader: require.resolve('file-loader'),
                         options: {
-                            limit: 8192
+                            name: '[name].[ext]',
+                            outputPath: 'images/'
                         }
+                    },
+                ].filter(loader => loader)
+            },
+            {
+                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+                use: {
+                    loader: require.resolve('file-loader'),
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'fonts/'
                     }
-                ]
-            }
+                }
+            },
         ],
     },
     plugins: [
