@@ -21,18 +21,21 @@ module.exports = {
             {
                 test: /\.(less|css)$/,
                 use: [
-                        loader: require.resolve('style-loader'),
-                        options: {insertAt: 'top'}
                     {
-                        loader: require.resolve('css-loader'),
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader",
                         options: {
                             sourceMap: true,
                             importLoaders: 1
                         }
                     },
                     {
-                        loader: require.resolve('less-loader'),
-                        options: {sourceMap: true}
+                        loader: "less-loader",
+                        options: {
+                            sourceMap: true
+                        }
                     }
                 ].filter(loader => loader)
             },
@@ -40,7 +43,7 @@ module.exports = {
                 test: /\.(jpe?g$|gif|png|svg)$/i,
                 use: [
                     {
-                        loader: require.resolve('file-loader'),
+                        loader: "file-loader",
                         options: {
                             name: '[name].[ext]',
                             outputPath: 'images/'
@@ -51,7 +54,7 @@ module.exports = {
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
                 use: {
-                    loader: require.resolve('file-loader'),
+                    loader: "file-loader",
                     options: {
                         name: '[name].[ext]',
                         outputPath: 'fonts/'
