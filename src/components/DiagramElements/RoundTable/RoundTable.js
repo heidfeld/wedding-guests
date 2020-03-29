@@ -38,6 +38,8 @@ const RoundTable = (props) => {
             <Text
                 text={label}
                 fontSize={20}
+                fontFamily={'Shadows Into Light Two'}
+                fontStyle={'bold'}
                 align={'center'}
                 verticalAlign={'middle'}
                 width={radius * 2}

@@ -43,6 +43,7 @@ const Chair = (props) => {
             <Text
                 text={label}
                 fontSize={10}
+                fontFamily={'Shadows Into Light Two'}
                 align={'center'}
                 verticalAlign={'middle'}
                 width={radius * 2}
