@@ -10,14 +10,6 @@ module.exports = merge(commonConfig, {
     module: {
         rules: [
             {
-                test: /\.html$/,
-                use: [
-                    {
-                        loader: "html-loader"
-                    }
-                ]
-            },
-            {
                 test: /\.(less)$/,
                 use: [
                     MiniCssExtractPlugin.loader,

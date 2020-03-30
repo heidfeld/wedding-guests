@@ -18,6 +18,14 @@ module.exports = {
                 }
             },
             {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: "html-loader"
+                    }
+                ]
+            },
+            {
                 test: /\.(jpe?g$|gif|png|svg)$/i,
                 use: [
                     {
@@ -27,7 +35,7 @@ module.exports = {
                             outputPath: 'images/'
                         }
                     },
-                ].filter(loader => loader)
+                ]
             },
             {
                 test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,

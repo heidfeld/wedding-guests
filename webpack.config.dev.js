@@ -10,14 +10,6 @@ module.exports = merge(commonConfig, {
     module: {
         rules: [
             {
-                test: /\.html$/,
-                use: [
-                    {
-                        loader: "html-loader"
-                    }
-                ]
-            },
-            {
                 test: /\.(less)$/,
                 use: [
                     {
@@ -36,7 +28,7 @@ module.exports = merge(commonConfig, {
                             sourceMap: true
                         }
                     }
-                ].filter(loader => loader)
+                ]
             },
             {
                 test: /\.(css)$/,
@@ -51,7 +43,7 @@ module.exports = merge(commonConfig, {
                             importLoaders: 1
                         }
                     }
-                ].filter(loader => loader)
+                ]
             }
         ],
     },
