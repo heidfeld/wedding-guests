@@ -1,56 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import {PANEL_SIDE} from './PanelConstants';
+import PanelControl from './PanelControl';
 import './less/DockedPanel.less';
-
-export const PANEL_SIDE = {
-    LEFT: 'Left',
-    RIGHT: 'Right',
-    BOTTOM: 'Bottom',
-    TOP: 'Top'
-};
 
 const DockedPanel = (props) => {
 
-    const {component, side} = props;
+    const {children, side, parentWidth, parentHeight} = props;
 
-    const getSideClassName = () => {
-        switch (side) {
-            case PANEL_SIDE.RIGHT:
-                return 'rightPanel verticalPanel';
-            case PANEL_SIDE.LEFT:
-                return 'leftPanel verticalPanel';
-            case PANEL_SIDE.TOP:
-                return 'topPanel horizontalPanel';
-            case PANEL_SIDE.BOTTOM:
-                return 'bottomPanel horizontalPanel';
-            default:
-                return '';
+    const [expanded, setExpanded] = useState(true);
+
+    const isVertical = (side) => side === PANEL_SIDE.RIGHT || side === PANEL_SIDE.LEFT;
+
+    const getClassNames = () => {
+        const baseClasses = 'dockedPanel';
+        return `${baseClasses} ${side}${expanded ? ' expanded' : ''}`;
+    };
+
+    const getStyles = () => {
+        if (side === PANEL_SIDE.TOP || side === PANEL_SIDE.BOTTOM) {
+            return {
+                height: 400
+            };
         }
+        return {
+            width: 400
+        };
     };
 
-    const getPanelClassName = () => {
-        return `dockedPanel ${getSideClassName()}`;
-    };
-
-    const handleControlClick = () => {
-        console.log('Docked panel hide');
+    const onExpand = () => {
+        setExpanded(!expanded);
     };
 
     return (
-        <div>
-            <div className='rightControl' onClick={handleControlClick}/>
-            <div className={getPanelClassName()}>
-                {component}
+        <div className={getClassNames()} onClick={onExpand}>
+            <div className={`content ${side}`} style={getStyles()}>
+                <div className='contentBody'>
+                    {children}
+                </div>
             </div>
+            <PanelControl onExpand={onExpand}/>
         </div>
     );
 
 };
 
+DockedPanel.defaultProps = {
+    parentWidth: 1,
+    parentHeight: 1
+};
+
 DockedPanel.propTypes = {
-    component: PropTypes.element.isRequired,
-    side: PropTypes.oneOf(Object.values(PANEL_SIDE)).isRequired
+    children: PropTypes.element || PropTypes.arrayOf(PropTypes.element),
+    side: PropTypes.oneOf(Object.values(PANEL_SIDE)).isRequired,
+    parentWidth: PropTypes.number,
+    parentHeight: PropTypes.number
 
 };
 

@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect} from 'react';
+import React, {useState, useLayoutEffect, useRef, useEffect} from 'react';
 import {Stage, Layer} from "react-konva";
 import PropTypes from 'prop-types';
 
@@ -8,22 +8,26 @@ import ContextMenu from '../ContextMenu/ContextMenu';
 import './less/GeneralStage.less';
 import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
-import DockedPanel, {PANEL_SIDE} from "../DockedPanel/DockedPanel";
+import DockedPanel from "../DockedPanel/DockedPanel";
+import {PANEL_SIDE} from '../DockedPanel/PanelConstants';
 import EditableTable from '../EditableTable/EditableTable';
-import cache from "less/lib/less-browser/cache";
 
 const GeneralStage = (props) => {
 
     const {t} = props;
 
+    const containerRef = useRef(null);
+
     const [data, setData] = useState({});
     const [selection, setSelection] = useState([]);
-
-    const [size, setSize] = useState([0, 0]);
+    const [size, setSize] = useState([1, 1]);
 
     useLayoutEffect(() => {
         const updateSize = () => {
-            setSize([window.innerWidth, window.innerHeight]);
+            const {width, height} = containerRef.current.getBoundingClientRect();
+            const elementWidth = width < 10 ? window.innerWidth : width;
+            const elementHeight = height < 10 ? window.innerHeight : height;
+            setSize([elementWidth, elementHeight]);
         };
         window.addEventListener('resize', updateSize);
         updateSize();
@@ -182,9 +186,12 @@ const GeneralStage = (props) => {
 
     return (
         <div>
-            <DockedPanel component={renderGuestTable()} side={PANEL_SIDE.RIGHT}/>
             {withMenu() === true ? renderContextMenu() : renderDefaultMenu()}
-            <div id="container"/>
+            <div id="container" ref={containerRef}>
+                <DockedPanel side={PANEL_SIDE.RIGHT} parentHeight={height} parentWidth={width}>
+                    {renderGuestTable()}
+                </DockedPanel>
+            </div>
             <Stage
                 width={width}
                 height={height}
