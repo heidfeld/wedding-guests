@@ -1,8 +1,32 @@
+@panelControlWidth: 20px;
+@panelControlHeight: 50px;
+
 .panelControl {
-  z-index: 2;
   width: 20px;
   height: 50px;
   position: absolute;
   background-color: #4444ff;
   content: '';
+  z-index: 991;
+  cursor: pointer;
+
+  &.bottom, &.top {
+    left: 50%;
+    margin-left: -@panelControlWidth / 2;
+    transform: rotate(90deg);
+  }
+
+  &.left, &.right {
+    top: 50%;
+    margin-top: -@panelControlHeight / 2;
+  }
+
+  &.right {
+    margin-left: -@panelControlWidth;
+  }
+
+  &.bottom {
+    margin-top: -@panelControlWidth;
+  }
+
 }

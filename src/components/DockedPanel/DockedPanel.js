@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 
 import {PANEL_SIDE} from './PanelConstants';
@@ -11,22 +11,13 @@ const DockedPanel = (props) => {
 
     const [expanded, setExpanded] = useState(true);
 
+    const panelRef = useRef(null);
+
     const isVertical = (side) => side === PANEL_SIDE.RIGHT || side === PANEL_SIDE.LEFT;
 
     const getClassNames = () => {
         const baseClasses = 'dockedPanel';
         return `${baseClasses} ${side}${expanded ? ' expanded' : ''}`;
-    };
-
-    const getStyles = () => {
-        if (side === PANEL_SIDE.TOP || side === PANEL_SIDE.BOTTOM) {
-            return {
-                height: 400
-            };
-        }
-        return {
-            width: 400
-        };
     };
 
     const onExpand = () => {
@@ -35,12 +26,16 @@ const DockedPanel = (props) => {
 
     return (
         <div className={getClassNames()} onClick={onExpand}>
-            <div className={`content ${side}`} style={getStyles()}>
-                <div className='contentBody'>
+            <div className={`content ${side}`}>
+                <div className='contentBody' ref={panelRef}>
                     {children}
                 </div>
             </div>
-            <PanelControl onExpand={onExpand}/>
+            <PanelControl
+                onExpand={onExpand}
+                dockedPanelRef={panelRef}
+                side={side}
+            />
         </div>
     );
 

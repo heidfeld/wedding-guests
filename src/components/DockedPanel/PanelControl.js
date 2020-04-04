@@ -6,11 +6,10 @@ import './less/PanelControl.less';
 
 const PanelControl = (props) => {
 
-    const {dockedPanelRef, onExpand} = props;
+    const {dockedPanelRef, onExpand, side} = props;
 
     return (
-        <div className={'vertical right'} onClick={onExpand}>
-
+        <div className={`panelControl ${side}`} onClick={onExpand}>
         </div>
     );
 
@@ -23,8 +22,6 @@ PanelControl.propTypes = {
         })
     }),
     side: PropTypes.oneOf(Object.values(PANEL_SIDE)),
-    parentHeight: PropTypes.number,
-    parentWidth: PropTypes.number,
     onExpand: PropTypes.func.isRequired
 };
 
