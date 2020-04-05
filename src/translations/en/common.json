@@ -15,5 +15,13 @@
       "surname": "Surname",
       "table": "Table"
     }
+  },
+  "dockedPanel": {
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "languageSwitcher": {
+    "pl": "Polski",
+    "en": "English"
   }
 }

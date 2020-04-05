@@ -15,5 +15,13 @@
       "surname": "Nazwisko",
       "table": "Stolik"
     }
+  },
+  "dockedPanel": {
+    "expand": "Rozwiń",
+    "collapse": "Zwiń"
+  },
+  "languageSwitcher": {
+    "pl": "Polski",
+    "en": "English"
   }
 }

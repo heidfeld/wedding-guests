@@ -7,7 +7,7 @@ import './less/DockedPanel.less';
 
 const DockedPanel = (props) => {
 
-    const {children, side, parentWidth, parentHeight} = props;
+    const {children, side, parentWidth, parentHeight, t} = props;
 
     const [expanded, setExpanded] = useState(true);
 
@@ -35,6 +35,8 @@ const DockedPanel = (props) => {
                 onExpand={onExpand}
                 dockedPanelRef={panelRef}
                 side={side}
+                t={t}
+                expanded={expanded}
             />
         </div>
     );
@@ -50,8 +52,8 @@ DockedPanel.propTypes = {
     children: PropTypes.element || PropTypes.arrayOf(PropTypes.element),
     side: PropTypes.oneOf(Object.values(PANEL_SIDE)).isRequired,
     parentWidth: PropTypes.number,
-    parentHeight: PropTypes.number
-
+    parentHeight: PropTypes.number,
+    t: PropTypes.func.isRequired
 };
 
 export default DockedPanel;

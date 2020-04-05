@@ -188,7 +188,7 @@ const GeneralStage = (props) => {
         <div>
             {withMenu() === true ? renderContextMenu() : renderDefaultMenu()}
             <div id="container" ref={containerRef}>
-                <DockedPanel side={PANEL_SIDE.RIGHT} parentHeight={height} parentWidth={width}>
+                <DockedPanel side={PANEL_SIDE.RIGHT} parentHeight={height} parentWidth={width} t={t}>
                     {renderGuestTable()}
                 </DockedPanel>
             </div>

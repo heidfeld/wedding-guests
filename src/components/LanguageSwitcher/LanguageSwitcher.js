@@ -7,7 +7,7 @@ import icon_en from './icon/en.png';
 
 const LanguageSwitcher = (props) => {
 
-    const {languages, onClick} = props;
+    const {languages, onClick, t} = props;
 
     const getLanguageIcon = (lan) => {
         if (lan === 'pl') {
@@ -22,7 +22,13 @@ const LanguageSwitcher = (props) => {
     const renderLanguagePreview = (lan, idx) => {
         const languageIcon = getLanguageIcon(lan);
         return (
-            <div key={`language-preview-${idx}`} onClick={(evt) => onClick(evt, lan)} className='LanguageButton'>
+            <div
+                key={`language-preview-${idx}`}
+                onClick={(evt) => onClick(evt, lan)}
+                className='LanguageButton'
+                data-tip={t(`languageSwitcher.${lan}`)}
+                data-place={'left'}
+            >
                 <img src={languageIcon} className='LanguageIcon' alt='language-icon'/>
             </div>
 
@@ -49,7 +55,8 @@ LanguageSwitcher.defaultProps = {
 
 LanguageSwitcher.propTypes = {
     languages: PropTypes.arrayOf(PropTypes.string),
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired
 };
 
 export default LanguageSwitcher;

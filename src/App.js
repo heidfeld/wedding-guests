@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {withTranslation} from 'react-i18next';
+import ReactTooltip from "react-tooltip";
 
 import './App.less';
 import GeneralStage from "./components/GeneralStage/GeneralStage";
@@ -20,11 +21,13 @@ class App extends Component {
     }
 
     render() {
+        const {t} = this.props;
         return (
             <div className="App">
+                <ReactTooltip/>
                 <div className="App-header">
                     <span>Wedding Guests</span>
-                    <LanguageSwitcher onClick={this.handleLanguage}/>
+                    <LanguageSwitcher onClick={this.handleLanguage} t={t}/>
                 </div>
                 <GeneralStage {...this.props} />
             </div>

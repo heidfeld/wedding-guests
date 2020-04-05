@@ -2,13 +2,16 @@
 @panelControlHeight: 50px;
 
 .panelControl {
-  width: 20px;
-  height: 50px;
+  width: @panelControlWidth;
+  height: @panelControlHeight;
   position: absolute;
-  background-color: #4444ff;
+  background-color: #007bff;
   content: '';
   z-index: 991;
   cursor: pointer;
+  border-radius: 2px;
+  line-height: @panelControlHeight;
+  color: white;
 
   &.bottom, &.top {
     left: 50%;

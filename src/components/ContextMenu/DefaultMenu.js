@@ -15,7 +15,12 @@ const DefaultMenu = (props) => {
     return (
         <div className='ContextMenu'>
             <ReactTooltip/>
-            <button data-tip={t('buttons.addTable')} className='btn btn-primary' onClick={handleAdd}>
+            <button
+                data-place={'right'}
+                data-tip={t('buttons.addTable')}
+                className='btn btn-primary'
+                onClick={handleAdd}
+            >
                 <i className="fa fa-plus" aria-hidden="true"/>
             </button>
         </div>
