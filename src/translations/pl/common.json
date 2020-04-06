@@ -7,7 +7,11 @@
     "addTable": "Dodaj Stolik",
     "addChair": "Dodaj Krzesło",
     "removeTable": "Usuń Stolik",
-    "removeChair": "Usuń Krzesło"
+    "removeChair": "Usuń Krzesło",
+    "export": "Export",
+    "exportPDF": "Export PDF",
+    "exportSVG": "Export SVG",
+    "exportPNG": "Export PNG"
   },
   "table": {
     "headers": {

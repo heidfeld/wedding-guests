@@ -11,12 +11,14 @@ import {getAllChairs} from './DataHelper';
 import DockedPanel from "../DockedPanel/DockedPanel";
 import {PANEL_SIDE} from '../DockedPanel/PanelConstants';
 import EditableTable from '../EditableTable/EditableTable';
+import {exportPDF, exportPNG, exportSVG} from '../../utils/ExportKonva';
 
 const GeneralStage = (props) => {
 
     const {t} = props;
 
     const containerRef = useRef(null);
+    const stageRef = useRef(null);
 
     const [data, setData] = useState({});
     const [selection, setSelection] = useState([]);
@@ -171,6 +173,9 @@ const GeneralStage = (props) => {
         return (
             <DefaultMenu
                 onAdd={onAdd}
+                exportPDF={() => exportPDF(stageRef.current, 6)}
+                exportPNG={() => exportPNG(stageRef.current, 6)}
+                exportSVG={() => exportSVG(stageRef.current)}
                 t={t}
             />
         );
@@ -197,7 +202,9 @@ const GeneralStage = (props) => {
                 height={height}
                 fill={'blue'}
                 container={'container'}
-                onClick={() => updateSelection()}>
+                onClick={() => updateSelection()}
+                ref={stageRef}
+            >
                 <Layer>
                     <WeddingGuests
                         data={Object.values(data)}
