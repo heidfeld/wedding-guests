@@ -1,12 +1,11 @@
 import React, {useEffect, memo, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {Group, Text, Circle} from 'react-konva';
+import {Group, Text, Rect, Circle} from 'react-konva';
+import {handleSelection, updateElement} from "../js/DiagramElementsHelper";
 
-import {updateElement, handleSelection} from '../js/DiagramElementsHelper';
+const RectTable = (props) => {
 
-const RoundTable = (props) => {
-
-    const {x, y, radius, children, label, id, updateSelection, isSelected, updateData} = props;
+    const {x, y, width, height, children, label, id, updateSelection, isSelected, updateData} = props;
 
     const shapeRef = useRef(null);
 
@@ -29,10 +28,11 @@ const RoundTable = (props) => {
             onDragEnd={handleDragEnd}
             ref={shapeRef}
         >
-            <Circle
+            <Rect
                 stroke={selected === true ? 'blue' : 'black'}
                 strokeWidth={selected === true ? 3 : 1}
-                radius={radius}
+                width={width}
+                height={height}
                 fill={'white'}
             />
             <Text
@@ -42,10 +42,10 @@ const RoundTable = (props) => {
                 fontStyle={'bold'}
                 align={'center'}
                 verticalAlign={'middle'}
-                width={radius * 2}
-                height={radius * 2}
-                x={-radius}
-                y={-radius}
+                width={width}
+                height={height}
+                x={0}
+                y={0}
                 color={'black'}
             />
             {children}
@@ -54,22 +54,24 @@ const RoundTable = (props) => {
 
 };
 
-RoundTable.defaultProps = {
-    radius: 80,
+RectTable.defaultProps = {
     x: 0,
-    y: 0
+    y: 0,
+    width: 100,
+    height: 50
 };
 
-RoundTable.propTypes = {
+RectTable.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
     children: (PropTypes.element || PropTypes.arrayOf(PropTypes.element)),
     updateSelection: PropTypes.func.isRequired,
     isSelected: PropTypes.func.isRequired,
-    updateData: PropTypes.func.isRequired,
-    radius: PropTypes.number
+    updateData: PropTypes.func.isRequired
 };
 
-export default memo(RoundTable);
+export default memo(RectTable);

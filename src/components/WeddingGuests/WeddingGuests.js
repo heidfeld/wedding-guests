@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import {Group} from 'react-konva';
 
 import RoundTable from '../DiagramElements/RoundTable/RoundTable';
+import RectTable from '../DiagramElements/RectTable/RectTable';
 import Chair from '../DiagramElements/Chair/Chair';
 import {getAllChairs, getAllTables} from '../GeneralStage/DataHelper';
+import {TYPES} from "./TypeConstants";
 
 const WeddingGuests = (props) => {
 
@@ -14,7 +16,7 @@ const WeddingGuests = (props) => {
         return deg * (Math.PI / 180);
     };
 
-    const renderChair = (config) => {
+    const renderRoundTableChair = (config) => {
         const {id, name = '', surname = '', type, idx, max, radius} = config;
 
         const angle = idx * 360 / max;
@@ -37,12 +39,12 @@ const WeddingGuests = (props) => {
         );
     };
 
-    const renderTable = (config) => {
+    const renderRoundTable = (config) => {
         const {id, label, type, x, y} = config;
         const radius = 80;
         const chairs = getAllChairs(data, id);
         const allChairs = chairs.map((chair, idx) => {
-            return renderChair({...chair, idx, max: chairs.length, radius: radius + 10});
+            return renderRoundTableChair({...chair, idx, max: chairs.length, radius: radius + 10});
         });
 
         return (
@@ -55,11 +57,73 @@ const WeddingGuests = (props) => {
                 x={x}
                 y={y}
                 label={label}
-                chairs={allChairs}
                 radius={radius}
+                updateData={updateData}
+            >
+                {allChairs.length ? allChairs : null}
+            </RoundTable>
+        );
+    };
+
+    const renderRectTableChair = (config) => {
+        const {id, name = '', surname = '', type, tableWidth, tableHeight, idx, max} = config;
+        const side = idx % 2;
+        const sidePosition = Math.floor(idx / 2);
+        const sideIdx = Math.ceil(max / 2);
+        const isHorizontal = tableWidth > tableHeight;
+        const offset = isHorizontal ? Math.round(tableWidth / sideIdx) : Math.round(tableHeight / sideIdx);
+        const calculatedX = isHorizontal ? (sidePosition * offset) + (offset / 2) : side * tableWidth;
+        const calculatedY = isHorizontal ? side * tableHeight : (sidePosition * offset) + (offset / 2);
+        return (
+            <Chair
+                key={id}
+                id={id}
+                type={type}
+                isSelected={isSelected}
+                updateSelection={updateSelection}
+                x={calculatedX}
+                y={calculatedY}
+                label={`${name} ${surname}`}
                 updateData={updateData}
             />
         );
+    };
+
+    const renderRectTable = (config) => {
+        const {id, label, type, x, y} = config;
+        const width = 300;
+        const height = 100;
+        const chairs = getAllChairs(data, id);
+        const allChairs = chairs.map((chair, idx) => {
+            return renderRectTableChair({
+                ...chair, idx, max: chairs.length, tableWidth: width, tableHeight: height
+            });
+        });
+        return (
+            <RectTable
+                key={id}
+                id={id}
+                type={type}
+                isSelected={isSelected}
+                updateSelection={updateSelection}
+                x={x}
+                y={y}
+                label={label}
+                width={width}
+                height={height}
+                updateData={updateData}
+            >
+                {allChairs.length ? allChairs : null}
+            </RectTable>
+        );
+    };
+
+    const renderTable = (table) => {
+        const {type} = table;
+        if (type === TYPES.ROUND_TABLE) {
+            return renderRoundTable(table);
+        }
+        return renderRectTable(table);
     };
 
     return (

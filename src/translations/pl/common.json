@@ -4,7 +4,8 @@
     "guest": "Gość"
   },
   "buttons" : {
-    "addTable": "Dodaj Stolik",
+    "addRoundTable": "Dodaj Okrągły Stolik",
+    "addRectTable": "Dodaj Prostokątny Stolik",
     "addChair": "Dodaj Krzesło",
     "removeTable": "Usuń Stolik",
     "removeChair": "Usuń Krzesło",

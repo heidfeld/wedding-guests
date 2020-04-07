@@ -4,7 +4,8 @@
     "guest": "Guest"
   },
   "buttons": {
-    "addTable": "Add Table",
+    "addRoundTable": "Add Round Table",
+    "addRectTable": "Add Rect Table",
     "addChair": "Add Chair",
     "removeTable": "Remove Table",
     "removeChair": "Remove Chair",

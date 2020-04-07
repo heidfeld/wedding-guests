@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './less/ContextMenu.less';
-import {isChair, isTable} from "../WeddingGuests/TypeConstants";
+import {isChair, isTable, TYPES} from "../WeddingGuests/TypeConstants";
 import ReactTooltip from "react-tooltip";
 
 const ContextMenu = (props) => {
@@ -15,7 +15,7 @@ const ContextMenu = (props) => {
     };
 
     const handleAdd = (evt) => {
-        onAdd(evt, data);
+        onAdd(evt, {type: TYPES.ROUND_CHAIR}, data);
     };
 
     const renderTableButtons = () => {

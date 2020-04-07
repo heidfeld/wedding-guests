@@ -3,7 +3,7 @@ import {Stage, Layer} from "react-konva";
 import PropTypes from 'prop-types';
 
 import WeddingGuests from '../WeddingGuests/WeddingGuests';
-import {isTable, TYPES} from '../WeddingGuests/TypeConstants';
+import {isRectTable, isRoundTable, isTable, TYPES} from '../WeddingGuests/TypeConstants';
 import ContextMenu from '../ContextMenu/ContextMenu';
 import './less/GeneralStage.less';
 import DefaultMenu from '../ContextMenu/DefaultMenu';
@@ -124,12 +124,25 @@ const GeneralStage = (props) => {
         }
     };
 
-    const addTable = () => {
+    const addRoundTable = () => {
         const randomId = guid();
         const tableConfig = {
             id: randomId,
             label: "Table",
             type: TYPES.ROUND_TABLE,
+            x: 200,
+            y: 200
+        };
+        const newData = {...data, [randomId]: tableConfig};
+        setData(newData);
+    };
+
+    const addRectTable = () => {
+        const randomId = guid();
+        const tableConfig = {
+            id: randomId,
+            label: "Table",
+            type: TYPES.RECT_TABLE,
             x: 200,
             y: 200
         };
@@ -149,12 +162,15 @@ const GeneralStage = (props) => {
         setData(newData);
     };
 
-    const onAdd = (evt, config = {}) => {
-        const {id, type} = config;
-        if (type && isTable(type)) {
-            addChair(id);
-        } else {
-            addTable();
+    const onAdd = (evt, config = {}, parentConfig = {}) => {
+        const {type} = config;
+        const {id: parentId, type: parentType} = parentConfig;
+        if (parentType && isTable(parentType)) {
+            addChair(parentId);
+        } else if (isRoundTable(type)) {
+            addRoundTable();
+        } else if (isRectTable(type)) {
+            addRectTable();
         }
     };
 

@@ -5,13 +5,18 @@ import ReactTooltip from "react-tooltip";
 import ControlChooser from '../ControlChooser/ControlChooser';
 import './less/DefaultMenu.less';
 import Control from "../Control/Control";
+import {TYPES} from "../WeddingGuests/TypeConstants";
 
 const DefaultMenu = (props) => {
 
     const {t, onAdd, exportPDF, exportPNG, exportSVG} = props;
 
-    const handleAdd = (evt) => {
-        onAdd(evt);
+    const handleRoundTableAdd = (evt) => {
+        onAdd(evt, {type: TYPES.ROUND_TABLE});
+    };
+
+    const handleRectTableAdd = (evt) => {
+        onAdd(evt, {type: TYPES.RECT_TABLE});
     };
 
     const renderExportPreview = () => {
@@ -59,14 +64,25 @@ const DefaultMenu = (props) => {
         />;
     };
 
-    const renderAddTable = () => {
+    const renderAddRoundTable = () => {
         return <Control
             key={'control_addTable'}
             tooltipSide={'right'}
-            tooltip={t('buttons.addTable')}
+            tooltip={t('buttons.addRoundTable')}
             className={'btn btn-primary'}
-            callback={handleAdd}
-            icon={'fa fa-plus'}
+            callback={handleRoundTableAdd}
+            icon={'fa fa-circle-o'}
+        />;
+    };
+
+    const renderAddRectTable = () => {
+        return <Control
+            key={'control_addTable'}
+            tooltipSide={'right'}
+            tooltip={t('buttons.addRectTable')}
+            className={'btn btn-primary'}
+            callback={handleRectTableAdd}
+            icon={'fa fa-square-o'}
         />;
     };
 
@@ -95,7 +111,8 @@ const DefaultMenu = (props) => {
     return (
         <div className='DefaultMenu'>
             <ReactTooltip/>
-            {renderMenuItem(renderAddTable())}
+            {renderMenuItem(renderAddRoundTable())}
+            {renderMenuItem(renderAddRectTable())}
             {renderMenuItem(renderExportChooser())}
             <div className={'clear'}/>
         </div>
