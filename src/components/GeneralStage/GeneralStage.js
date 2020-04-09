@@ -10,7 +10,7 @@ import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
 import DockedPanel from "../DockedPanel/DockedPanel";
 import {PANEL_SIDE} from '../DockedPanel/PanelConstants';
-import EditableTable from '../EditableTable/EditableTable';
+import GuestTable from '../../views/GuestTable/GuestTable';
 import {exportPDF, exportPNG, exportSVG} from '../../utils/ExportKonva';
 
 const GeneralStage = (props) => {
@@ -199,7 +199,7 @@ const GeneralStage = (props) => {
 
     const renderGuestTable = () => {
         return (
-            <EditableTable t={t} tableData={data}/>
+            <GuestTable t={t} data={data} updateData={updateData}/>
         );
     };
 

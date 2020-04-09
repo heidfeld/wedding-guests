@@ -7,6 +7,10 @@ const commonConfig = require('./webpack.config.common');
 module.exports = merge(commonConfig, {
     mode: 'production',
     devtool: 'source-map',
+    output: {
+        filename: '[name].[contenthash].js',
+        path: path.resolve(__dirname, 'dist')
+    },
     module: {
         rules: [
             {

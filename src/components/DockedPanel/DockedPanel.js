@@ -25,7 +25,7 @@ const DockedPanel = (props) => {
     };
 
     return (
-        <div className={getClassNames()} onClick={onExpand}>
+        <div className={getClassNames()}>
             <div className={`content ${side}`}>
                 <div className='contentBody' ref={panelRef}>
                     {children}
