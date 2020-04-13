@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TextInput from '../CommonInputFactory/TextInput/TextInput'
+
 const EditableCell = (props) => {
 
     const {cell: {value: initialValue} = {}, row, column, onValueChanged} = props;
@@ -20,7 +22,7 @@ const EditableCell = (props) => {
         onValueChanged(row, column, value);
     };
 
-    return <input className={'editableCell'} value={value} onChange={onChange} onBlur={onBlur}/>
+    return <TextInput className={'editableCell'} value={value} onChange={onChange} onBlur={onBlur}/>
 };
 
 EditableCell.propTypes = {
