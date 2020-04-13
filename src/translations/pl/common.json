@@ -4,6 +4,7 @@
     "guest": "Gość"
   },
   "buttons" : {
+    "add": "Dodaj",
     "addRoundTable": "Dodaj Okrągły Stolik",
     "addRectTable": "Dodaj Prostokątny Stolik",
     "addChair": "Dodaj Krzesło",
@@ -14,8 +15,9 @@
     "exportSVG": "Export SVG",
     "exportPNG": "Export PNG"
   },
-  "table": {
+  "guestTable": {
     "headers": {
+      "number": "Lp.",
       "name": "Imię",
       "surname": "Nazwisko",
       "table": "Stolik"

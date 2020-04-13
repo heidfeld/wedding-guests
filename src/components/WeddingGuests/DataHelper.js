@@ -1,4 +1,4 @@
-import {isChair, isTable} from "../WeddingGuests/TypeConstants";
+import {isChair, isTable} from "./TypeConstants";
 
 export const getAllTables = (data) => {
     return Object.values(data).filter(({type}) => isTable(type));

@@ -64,6 +64,18 @@ const DefaultMenu = (props) => {
         />;
     };
 
+    const renderAddPreview = () => {
+        return (
+            <Control
+                key={'add_preview'}
+                tooltipSide={'right'}
+                tooltip={t('buttons.add')}
+                className={'btn btn-info'}
+                icon={'fa fa-plus'}
+            />
+        );
+    };
+
     const renderAddRoundTable = () => {
         return <Control
             key={'control_addTable'}
@@ -86,14 +98,6 @@ const DefaultMenu = (props) => {
         />;
     };
 
-    const renderExportList = () => {
-        return ([
-            renderExportPDF(),
-            renderExportPNG(),
-            renderExportSVG()
-        ]);
-    };
-
     const renderMenuItem = (control) => {
         return (
             <div className={'menuItem'}>
@@ -104,15 +108,23 @@ const DefaultMenu = (props) => {
 
     const renderExportChooser = () => {
         return <ControlChooser vertical={true} preview={renderExportPreview()}>
-            {renderExportList()}
+            {renderExportPDF()}
+            {renderExportPNG()}
+            {renderExportSVG()}
+        </ControlChooser>;
+    };
+
+    const renderAddChooser = () => {
+        return <ControlChooser vertical={true} preview={renderAddPreview()}>
+            {renderAddRoundTable()}
+            {renderAddRectTable()}
         </ControlChooser>;
     };
 
     return (
         <div className='DefaultMenu'>
             <ReactTooltip/>
-            {renderMenuItem(renderAddRoundTable())}
-            {renderMenuItem(renderAddRectTable())}
+            {renderMenuItem(renderAddChooser())}
             {renderMenuItem(renderExportChooser())}
             <div className={'clear'}/>
         </div>

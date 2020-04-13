@@ -2,7 +2,7 @@ import React, {useEffect, memo, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Circle} from 'react-konva';
 
-import {updateElement, handleSelection} from '../js/DiagramElementsHelper';
+import {updateElement, handleSelection} from '../DiagramElementsHelper';
 
 const RoundTable = (props) => {
 

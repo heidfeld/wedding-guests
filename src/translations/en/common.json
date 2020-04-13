@@ -4,6 +4,7 @@
     "guest": "Guest"
   },
   "buttons": {
+    "add": "Add",
     "addRoundTable": "Add Round Table",
     "addRectTable": "Add Rect Table",
     "addChair": "Add Chair",
@@ -14,8 +15,9 @@
     "exportSVG": "Export SVG",
     "exportPNG": "Export PNG"
   },
-  "table": {
+  "guestTable": {
     "headers": {
+      "number": "No.",
       "name": "Name",
       "surname": "Surname",
       "table": "Table"

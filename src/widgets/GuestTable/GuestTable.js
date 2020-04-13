@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
-import {getAllChairs} from "../../components/GeneralStage/DataHelper";
+import {getAllChairs} from "../../components/WeddingGuests/DataHelper";
 import CommonTable from "../../components/CommonTable/CommonTable";
 
 const GuestTable = (props) => {
@@ -42,24 +42,30 @@ const GuestTable = (props) => {
                 accessor: 'headerId'
             },
             {
-                Header: t('table.headers.name'),
+                Header: t('guestTable.headers.number'),
+                accessor: 'headerNumber',
+                width: 50
+            },
+            {
+                Header: t('guestTable.headers.name'),
                 accessor: 'headerName'
             },
             {
-                Header: t('table.headers.surname'),
+                Header: t('guestTable.headers.surname'),
                 accessor: 'headerSurname'
             },
             {
-                Header: t('table.headers.table'),
+                Header: t('guestTable.headers.table'),
                 accessor: 'headerTable'
             }
         ];
     }, [t]);
 
-    const toRow = (entity, tableData) => {
+    const toRow = (entity, tableData, idx) => {
         const {id, name, surname, parent} = entity;
         const {label: tableName} = tableData[parent] || {};
         return {
+            headerNumber: idx + 1,
             headerId: id,
             headerName: name,
             headerSurname: surname,
@@ -76,7 +82,7 @@ const GuestTable = (props) => {
     };
 
     const tableData = useMemo(() => {
-        return getAllChairs(data).map(entity => toRow(entity, data));
+        return getAllChairs(data).map((entity, idx) => toRow(entity, data, idx));
     }, [data]);
 
     return (

@@ -1,7 +1,7 @@
 import React, {useEffect, memo, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {Group, Text, Rect, Circle} from 'react-konva';
-import {handleSelection, updateElement} from "../js/DiagramElementsHelper";
+import {handleSelection, updateElement} from "../DiagramElementsHelper";
 
 const RectTable = (props) => {
 

@@ -3,7 +3,7 @@ import {withTranslation} from 'react-i18next';
 import ReactTooltip from "react-tooltip";
 
 import './App.less';
-import GeneralStage from "./components/GeneralStage/GeneralStage";
+import WeddingGuests from "./components/WeddingGuests/WeddingGuests";
 import LanguageSwitcher from "./components/LanguageSwitcher/LanguageSwitcher";
 
 class App extends Component {
@@ -29,7 +29,7 @@ class App extends Component {
                     <span>Wedding Guests</span>
                     <LanguageSwitcher onClick={this.handleLanguage} t={t}/>
                 </div>
-                <GeneralStage {...this.props} />
+                <WeddingGuests {...this.props} />
             </div>
         );
     }

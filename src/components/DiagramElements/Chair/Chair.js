@@ -1,8 +1,8 @@
-import React, {memo, useRef, useEffect} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
-import {Group, Text, Circle} from 'react-konva';
+import {Circle, Group, Text} from 'react-konva';
 
-import {updateElement, handleSelection} from '../js/DiagramElementsHelper';
+import {handleSelection, updateElement} from '../DiagramElementsHelper';
 
 const Chair = (props) => {
 
@@ -30,16 +30,16 @@ const Chair = (props) => {
             onDragEnd={handleDragEnd}
             ref={shapeRef}
         >
-                <Circle
-                    stroke={selected === true ? 'blue' : 'black'}
-                    strokeWidth={selected === true ? 3 : 1}
-                    width={size}
-                    height={size / 5}
-                    fill={'lightgray'}
-                    x={0}
-                    y={0}
-                    radius={radius}
-                />
+            <Circle
+                stroke={selected === true ? 'blue' : 'black'}
+                strokeWidth={selected === true ? 3 : 1}
+                width={size}
+                height={size / 5}
+                fill={'lightgray'}
+                x={0}
+                y={0}
+                radius={radius}
+            />
             <Text
                 text={label}
                 fontSize={10}

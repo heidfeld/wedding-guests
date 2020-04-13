@@ -20,7 +20,7 @@ const EditableCell = (props) => {
         onValueChanged(row, column, value);
     };
 
-    return <input value={value} onChange={onChange} onBlur={onBlur}/>
+    return <input className={'editableCell'} value={value} onChange={onChange} onBlur={onBlur}/>
 };
 
 EditableCell.propTypes = {
