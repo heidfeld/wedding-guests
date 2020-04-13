@@ -68,7 +68,7 @@ RectTable.propTypes = {
     y: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    children: (PropTypes.element || PropTypes.arrayOf(PropTypes.element)),
+    children: PropTypes.arrayOf(PropTypes.element),
     updateSelection: PropTypes.func.isRequired,
     isSelected: PropTypes.func.isRequired,
     updateData: PropTypes.func.isRequired

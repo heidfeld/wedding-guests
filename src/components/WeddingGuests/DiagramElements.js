@@ -60,7 +60,7 @@ const DiagramElements = (props) => {
                 radius={radius}
                 updateData={updateData}
             >
-                {allChairs.length ? allChairs : null}
+                {allChairs}
             </RoundTable>
         );
     };
@@ -113,7 +113,7 @@ const DiagramElements = (props) => {
                 height={height}
                 updateData={updateData}
             >
-                {allChairs.length ? allChairs : null}
+                {allChairs}
             </RectTable>
         );
     };

@@ -44,7 +44,7 @@ const GuestTable = (props) => {
             {
                 Header: t('guestTable.headers.number'),
                 accessor: 'headerNumber',
-                width: 50
+                width: 60
             },
             {
                 Header: t('guestTable.headers.name'),
@@ -92,6 +92,7 @@ const GuestTable = (props) => {
             hiddenColumns={getHiddenColumns()}
             onValueChanged={onValueChanged}
             editableColumns={getEditableColumns()}
+            filterable={true}
         />
     );
 

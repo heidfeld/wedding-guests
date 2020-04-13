@@ -65,7 +65,7 @@ RoundTable.propTypes = {
     label: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,
-    children: (PropTypes.element || PropTypes.arrayOf(PropTypes.element)),
+    children: PropTypes.arrayOf(PropTypes.element),
     updateSelection: PropTypes.func.isRequired,
     isSelected: PropTypes.func.isRequired,
     updateData: PropTypes.func.isRequired,

@@ -1,14 +1,19 @@
-import React, {useMemo, useState, useEffect} from 'react';
+import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
-import {useTable, useBlockLayout} from 'react-table';
+import {useBlockLayout, useTable, useFilters} from 'react-table';
 import {useSticky} from 'react-table-sticky';
 
 import EditableCell from './EditableCell';
 import './less/CommonTable.less';
+import TextInput from '../CommonInputFactory/TextInput';
 
 const CommonTable = (props) => {
 
-    const {columns, data, onValueChanged, hiddenColumns, editableColumns} = props;
+    const {columns, data, onValueChanged, hiddenColumns, editableColumns, filterable} = props;
+
+    const isFilterable = () => {
+        return filterable;
+    };
 
     const isEditable = () => {
         return typeof onValueChanged === 'function' && editableColumns.length;
@@ -26,6 +31,25 @@ const CommonTable = (props) => {
         }
     };
 
+    const defaultColumnFilter = ({column: {filterValue, setFilter, Header}}) => {
+        return (
+            <TextInput
+                value={filterValue || ''}
+                onChange={({target}) => {
+                    setFilter(target.value || undefined)
+                }}
+                placeholder={Header.toString()}
+            />
+        )
+    };
+
+    const defaultColumn = React.useMemo(
+        () => ({
+            Filter: defaultColumnFilter,
+        }),
+        []
+    );
+
     const tableColumns = useMemo(() => {
         return columns.map(col => {
             const columnCopy = {...col};
@@ -37,6 +61,12 @@ const CommonTable = (props) => {
         });
     }, [columns]);
 
+    const getFilterLogic = () => {
+        if (isFilterable()) {
+            return useFilters;
+        }
+    };
+
     const {
         getTableProps,
         getTableBodyProps,
@@ -47,8 +77,10 @@ const CommonTable = (props) => {
             columns: tableColumns,
             data,
             initialState: getTableInitialState(),
-            onValueChanged: handleValueChanged
+            onValueChanged: handleValueChanged,
+            defaultColumn
         },
+        getFilterLogic(),
         useBlockLayout,
         useSticky
     );
@@ -59,7 +91,9 @@ const CommonTable = (props) => {
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        <th {...column.getHeaderProps()}>
+                            <div>{column.canFilter ? column.render('Filter') : column.render('Header')}</div>
+                        </th>
                     ))}
                 </tr>
             ))}
@@ -83,7 +117,8 @@ const CommonTable = (props) => {
 
 CommonTable.defaultProps = {
     hiddenColumns: [],
-    editableColumns: []
+    editableColumns: [],
+    filterable: false
 };
 
 CommonTable.propTypes = {
@@ -94,7 +129,8 @@ CommonTable.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
     onValueChanged: PropTypes.func,
     hiddenColumns: PropTypes.arrayOf(PropTypes.string),
-    editableColumns: PropTypes.arrayOf(PropTypes.string)
+    editableColumns: PropTypes.arrayOf(PropTypes.string),
+    filterable: PropTypes.bool
 };
 
 export default CommonTable;

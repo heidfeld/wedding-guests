@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import DiagramElements from './DiagramElements';
 import {isRectTable, isRoundTable, isTable, TYPES} from './TypeConstants';
 import ContextMenu from '../ContextMenu/ContextMenu';
-import './less/GeneralStage.less';
+import './less/WeddingGuests.less';
 import DefaultMenu from '../ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
 import DockedPanel from "../DockedPanel/DockedPanel";

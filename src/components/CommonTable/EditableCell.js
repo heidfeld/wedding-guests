@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TextInput from '../CommonInputFactory/TextInput/TextInput'
+import TextInput from '../CommonInputFactory/TextInput'
 
 const EditableCell = (props) => {
 
