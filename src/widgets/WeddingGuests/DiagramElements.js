@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Group} from 'react-konva';
 
-import RoundTable from '../DiagramElements/RoundTable/RoundTable';
-import RectTable from '../DiagramElements/RectTable/RectTable';
-import Chair from '../DiagramElements/Chair/Chair';
+import RoundTable from '../../components/DiagramElements/RoundTable/RoundTable';
+import RectTable from '../../components/DiagramElements/RectTable/RectTable';
+import Chair from '../../components/DiagramElements/Chair/Chair';
 import {getAllChairs, getAllTables} from './DataHelper';
 import {TYPES} from "./TypeConstants";
 

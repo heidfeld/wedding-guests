@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import PropTypes from 'prop-types';
-import {getAllChairs} from "../../components/WeddingGuests/DataHelper";
+import {getAllChairs} from "../WeddingGuests/DataHelper";
 import CommonTable from "../../components/CommonTable/CommonTable";
 
 const GuestTable = (props) => {

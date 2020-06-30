@@ -3,7 +3,7 @@ import {withTranslation} from 'react-i18next';
 import ReactTooltip from "react-tooltip";
 
 import './App.less';
-import WeddingGuests from "./components/WeddingGuests/WeddingGuests";
+import WeddingGuests from "./widgets/WeddingGuests/WeddingGuests";
 import LanguageSwitcher from "./components/LanguageSwitcher/LanguageSwitcher";
 
 class App extends Component {

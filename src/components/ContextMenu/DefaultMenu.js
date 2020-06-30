@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import ControlChooser from '../ControlChooser/ControlChooser';
 import './less/DefaultMenu.less';
 import Control from "../Control/Control";
-import {TYPES} from "../WeddingGuests/TypeConstants";
+import {TYPES} from "../../widgets/WeddingGuests/TypeConstants";
 
 const DefaultMenu = (props) => {
 

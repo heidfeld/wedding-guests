@@ -1,27 +1,31 @@
-import React, {useState, useLayoutEffect, useRef, useEffect} from 'react';
-import {Stage, Layer} from "react-konva";
+import React, {useLayoutEffect, useRef, useState} from 'react';
+import {Layer, Stage} from "react-konva";
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import DiagramElements from './DiagramElements';
 import {isRectTable, isRoundTable, isTable, TYPES} from './TypeConstants';
-import ContextMenu from '../ContextMenu/ContextMenu';
+import ContextMenu from '../../components/ContextMenu/ContextMenu';
 import './less/WeddingGuests.less';
-import DefaultMenu from '../ContextMenu/DefaultMenu';
+import DefaultMenu from '../../components/ContextMenu/DefaultMenu';
 import {getAllChairs} from './DataHelper';
-import DockedPanel from "../DockedPanel/DockedPanel";
-import {PANEL_SIDE} from '../DockedPanel/PanelConstants';
+import DockedPanel from '../../components/DockedPanel/DockedPanel';
+import {PANEL_SIDE} from '../../components/DockedPanel/PanelConstants';
 import GuestTable from '../../widgets/GuestTable/GuestTable';
 import {exportPDF, exportPNG, exportSVG} from '../../utils/ExportKonva';
+import selectedObjectsChanged from '../../config/redux/actions/widgets/selectedObjectsChanged';
+import ReduxStateHelper from '../../config/redux/helpers/ReduxStateHelper';
+
+const WEDDING_GUESTS_WIDGET_ID = 'wedding-guests-widget-id';
 
 const WeddingGuests = (props) => {
 
-    const {t} = props;
+    const {t, selectedObjects, selectedObjectsChanged} = props;
 
     const containerRef = useRef(null);
     const stageRef = useRef(null);
 
     const [data, setData] = useState({});
-    const [selection, setSelection] = useState([]);
     const [size, setSize] = useState([1, 1]);
 
     useLayoutEffect(() => {
@@ -77,25 +81,25 @@ const WeddingGuests = (props) => {
 
     const updateSelection = (id, append = false) => {
         if (id && append === true) {
-            setSelection([...selection, id]);
+            selectedObjectsChanged(WEDDING_GUESTS_WIDGET_ID, [...selectedObjects, id]);
         } else if (id) {
-            setSelection([id]);
+            selectedObjectsChanged(WEDDING_GUESTS_WIDGET_ID, [id]);
         } else {
-            setSelection([]);
+            selectedObjectsChanged(WEDDING_GUESTS_WIDGET_ID, []);
         }
     };
 
     const isSelected = (id) => {
-        const selected = id ? !!~selection.indexOf(id) : false;
+        const selected = id ? !!~selectedObjects.indexOf(id) : false;
         return selected === true;
     };
 
     const withMenu = () => {
-        return selection.length === 1;
+        return selectedObjects.length === 1;
     };
 
     const getFirstSelected = () => {
-        const firstSelected = selection.find(entity => entity);
+        const firstSelected = selectedObjects.find(entity => entity);
         return data[firstSelected];
     };
 
@@ -234,8 +238,23 @@ const WeddingGuests = (props) => {
     );
 };
 
+WeddingGuests.defaultProps = {
+    selectedObjects: []
+};
+
 WeddingGuests.propTypes = {
     t: PropTypes.func
 };
 
-export default WeddingGuests;
+const mapStateToProps = (state = {}, props) => {
+    const selectedObjects = ReduxStateHelper.getSelectedObjectsForId(state, WEDDING_GUESTS_WIDGET_ID);
+    return {
+        selectedObjects
+    };
+};
+
+const mapDispatchToProps = {
+    selectedObjectsChanged
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeddingGuests);
