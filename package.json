@@ -8,10 +8,15 @@
     "@babel/preset-env": "7.9.0",
     "@babel/preset-react": "7.9.4",
     "@fortawesome/free-solid-svg-icons": "5.13.0",
+    "babel-jest": "26.1.0",
     "babel-loader": "8.1.0",
     "bootstrap": "4.4.1",
     "clean-webpack-plugin": "3.0.0",
     "css-loader": "3.4.2",
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "1.15.2",
+    "enzyme-to-json": "3.5.0",
+    "jest": "26.1.0",
     "font-awesome": "4.7.0",
     "file-loader": "6.0.0",
     "file-saver": "2.0.2",
@@ -35,6 +40,7 @@
     "react-scripts": "0.9.x",
     "react-table": "7.0.0",
     "react-table-sticky": "1.1.2",
+    "react-test-renderer": "16.13.1",
     "react-tooltip": "4.1.2",
     "reduce-reducers": "1.0.4",
     "redux": "4.0.5",
@@ -50,6 +56,11 @@
   "scripts": {
     "build-prod": "webpack --config=webpack.config.prod.js",
     "build-dev": "webpack --config=webpack.config.dev.js",
-    "start": "webpack-dev-server --config=webpack.config.dev.js --open"
+    "start": "webpack-dev-server --config=webpack.config.dev.js --open",
+    "test": "jest"
+  },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "setupFilesAfterEnv": ["./jest.setup.js"]
   }
 }
