@@ -1,3 +1,5 @@
+import {getClosestCirclePoint} from "../../utils/MathHelper";
+
 export const updateElement = (id, updateCallback, shapeRef, properties = {}, updateChildren = false) => {
     const {current: shape} = shapeRef;
     if (shape) {
@@ -22,4 +24,9 @@ export const handleSelection = (id, updateCallback, evt) => {
     }
     updateCallback(id);
     evt.cancelBubble = true;
+};
+
+export const getClosestTablePoint = (position, tableDimensions) => {
+    const {x: tableX, y: tableY, radius: tableRadius} = tableDimensions;
+    return getClosestCirclePoint(position, {x: tableX, y: tableY}, tableRadius);
 };

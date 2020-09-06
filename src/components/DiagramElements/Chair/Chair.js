@@ -2,11 +2,12 @@ import React, {memo, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {Circle, Group, Text} from 'react-konva';
 
-import {handleSelection, updateElement} from '../DiagramElementsHelper';
+import {getClosestTablePoint, handleSelection, updateElement} from '../DiagramElementsHelper';
+import {TYPES} from "../../../widgets/WeddingGuests/TypeConstants";
 
 const Chair = (props) => {
 
-    const {id, size, label, x, y, updateSelection, isSelected, updateData} = props;
+    const {id, size, label, x, y, updateSelection, isSelected, updateData, tableType, tableDimensions} = props;
 
     const shapeRef = useRef(null);
 
@@ -21,6 +22,16 @@ const Chair = (props) => {
     const radius = 15;
     const selected = isSelected(id);
 
+    const handleDragging = (position) => {
+        if (tableType === TYPES.RECT_TABLE) {
+            return position;
+        }
+        if (tableType === TYPES.ROUND_TABLE) {
+            return getClosestTablePoint(position, tableDimensions);
+        }
+        return position;
+    };
+
     return (
         <Group
             x={x}
@@ -29,6 +40,7 @@ const Chair = (props) => {
             onClick={(evt) => handleSelection(id, updateSelection, evt)}
             onDragEnd={handleDragEnd}
             ref={shapeRef}
+            dragBoundFunc={handleDragging}
         >
             <Circle
                 stroke={selected === true ? 'blue' : 'black'}
@@ -63,6 +75,14 @@ Chair.defaultProps = {
 Chair.propTypes = {
     id: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    tableType: PropTypes.string.isRequired,
+    tableDimensions: PropTypes.shape({
+        radius: PropTypes.number,
+        x: PropTypes.number,
+        y: PropTypes.number,
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
     label: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,

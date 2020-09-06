@@ -7,6 +7,7 @@ import RectTable from '../../components/DiagramElements/RectTable/RectTable';
 import Chair from '../../components/DiagramElements/Chair/Chair';
 import {getAllChairs, getAllTables} from './DataHelper';
 import {TYPES} from "./TypeConstants";
+import {getClosestTablePoint} from "../../components/DiagramElements/DiagramElementsHelper";
 
 const DiagramElements = (props) => {
 
@@ -17,21 +18,25 @@ const DiagramElements = (props) => {
     };
 
     const renderRoundTableChair = (config) => {
-        const {id, name = '', surname = '', type, idx, max, radius} = config;
+        const {id, name = '', surname = '', type, idx, max, radius, tableDimensions} = config;
 
+        const {x: tableX, y: tableY} = tableDimensions;
         const angle = idx * 360 / max;
         const radians = degToRad(angle - 90);
-        const calculatedX = (radius) * Math.cos(radians);
-        const calculatedY = (radius) * Math.sin(radians);
+        const absChairX = (radius) * Math.cos(radians) + tableX;
+        const absChairY = (radius) * Math.sin(radians) + tableY;
+        const {x, y} = getClosestTablePoint({x: absChairX, y: absChairY}, tableDimensions);
         return (
             <Chair
                 key={id}
                 id={id}
                 type={type}
+                tableType={TYPES.ROUND_TABLE}
+                tableDimensions={tableDimensions}
                 isSelected={isSelected}
                 updateSelection={updateSelection}
-                x={calculatedX}
-                y={calculatedY}
+                x={x - tableX}
+                y={y - tableY}
                 rotation={angle}
                 label={`${name} ${surname}`}
                 updateData={updateData}
@@ -43,8 +48,11 @@ const DiagramElements = (props) => {
         const {id, label, type, x, y} = config;
         const radius = 80;
         const chairs = getAllChairs(data, id);
+        const tableDimensions = {radius, x, y};
         const allChairs = chairs.map((chair, idx) => {
-            return renderRoundTableChair({...chair, idx, max: chairs.length, radius: radius + 10});
+            return renderRoundTableChair({
+                ...chair, idx, max: chairs.length, radius: radius + 10, tableDimensions
+            });
         });
 
         return (
@@ -79,6 +87,7 @@ const DiagramElements = (props) => {
                 key={id}
                 id={id}
                 type={type}
+                tableType={TYPES.RECT_TABLE}
                 isSelected={isSelected}
                 updateSelection={updateSelection}
                 x={calculatedX}
