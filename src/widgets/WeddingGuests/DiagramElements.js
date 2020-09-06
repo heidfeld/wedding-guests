@@ -74,7 +74,7 @@ const DiagramElements = (props) => {
     };
 
     const renderRectTableChair = (config) => {
-        const {id, name = '', surname = '', type, tableWidth, tableHeight, idx, max} = config;
+        const {id, name = '', surname = '', type, tableWidth, tableHeight, idx, max, tableDimensions} = config;
         const side = idx % 2;
         const sidePosition = Math.floor(idx / 2);
         const sideIdx = Math.ceil(max / 2);
@@ -88,6 +88,7 @@ const DiagramElements = (props) => {
                 id={id}
                 type={type}
                 tableType={TYPES.RECT_TABLE}
+                tableDimensions={tableDimensions}
                 isSelected={isSelected}
                 updateSelection={updateSelection}
                 x={calculatedX}
@@ -102,10 +103,11 @@ const DiagramElements = (props) => {
         const {id, label, type, x, y} = config;
         const width = 300;
         const height = 100;
+        const tableDimensions = {x, y, width, height};
         const chairs = getAllChairs(data, id);
         const allChairs = chairs.map((chair, idx) => {
             return renderRectTableChair({
-                ...chair, idx, max: chairs.length, tableWidth: width, tableHeight: height
+                ...chair, idx, max: chairs.length, tableWidth: width, tableHeight: height, tableDimensions
             });
         });
         return (

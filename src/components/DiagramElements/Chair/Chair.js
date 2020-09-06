@@ -4,6 +4,7 @@ import {Circle, Group, Text} from 'react-konva';
 
 import {getClosestTablePoint, handleSelection, updateElement} from '../DiagramElementsHelper';
 import {TYPES} from "../../../widgets/WeddingGuests/TypeConstants";
+import {getClosestRectanglePoint} from "../../../utils/MathHelper";
 
 const Chair = (props) => {
 
@@ -24,7 +25,7 @@ const Chair = (props) => {
 
     const handleDragging = (position) => {
         if (tableType === TYPES.RECT_TABLE) {
-            return position;
+            return getClosestRectanglePoint(position, tableDimensions);
         }
         if (tableType === TYPES.ROUND_TABLE) {
             return getClosestTablePoint(position, tableDimensions);
