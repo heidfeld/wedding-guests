@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import './less/ContextMenu.less';
 import {isChair, isTable, TYPES} from "../../widgets/WeddingGuests/TypeConstants";
 import ReactTooltip from "react-tooltip";
+import {isSingleSelection} from "../../widgets/WeddingGuests/DataHelper";
 
 const ContextMenu = (props) => {
 
-    const {data = {}, t, onRemove, onAdd} = props;
+    const {data = {}, selectedEntities, t, onRemove, onAdd, onSwitch} = props;
     const {absX = 0, absY = 0, type} = data;
 
     const handleRemove = (evt) => {
@@ -18,25 +19,62 @@ const ContextMenu = (props) => {
         onAdd(evt, {type: TYPES.ROUND_CHAIR}, data);
     };
 
+    const handleSwitch = (evt) => {
+        onSwitch(evt, data);
+    };
+
+    const renderRemoveTableButton = () => {
+        return (
+            <button data-tip={t('buttons.removeTable')} className='btn btn-danger btn-sm' onClick={handleRemove}>
+                <i className="fa fa-trash" aria-hidden="true"/>
+            </button>
+        );
+    }
+
+    const renderAddChairButton = () => {
+        return (
+            <button data-tip={t('buttons.addChair')} className='btn btn-info btn-sm' onClick={handleAdd}>
+                <i className="fa fa-plus" aria-hidden="true"/>
+            </button>
+        );
+    }
+
     const renderTableButtons = () => {
         return (
             <div>
-                <button data-tip={t('buttons.removeTable')} className='btn btn-danger btn-sm' onClick={handleRemove}>
-                    <i className="fa fa-trash" aria-hidden="true"/>
-                </button>
-                <button data-tip={t('buttons.addChair')} className='btn btn-info btn-sm' onClick={handleAdd}>
-                    <i className="fa fa-plus" aria-hidden="true"/>
-                </button>
+                {isSingleSelection(selectedEntities) ? renderRemoveTableButton() : null}
+                {isSingleSelection(selectedEntities) ? renderAddChairButton() : null}
             </div>
         );
+    };
+
+    const renderRemoveChairButton = () => {
+        return (
+            <button data-tip={t('buttons.removeChair')} className='btn btn-danger btn-sm' onClick={handleRemove}>
+                <i className="fa fa-trash" aria-hidden="true"/>
+            </button>
+        );
+    }
+
+    const renderSwitchChairButton = () => {
+        return (
+            <button data-tip={t('buttons.changeTable')} className='btn btn-warning btn-sm' onClick={handleSwitch}>
+                <i className="fa fa-exchange" aria-hidden="true"/>
+            </button>
+        );
+    }
+
+    const isTableAndChairSwitchPossible = () => {
+        const selectedTables = selectedEntities.filter(({type}) => isTable(type));
+        const selectedChairs = selectedEntities.filter(({type}) => isChair(type));
+        return selectedChairs.length === 1 && selectedTables.length === 1;
     };
 
     const renderChairButtons = () => {
         return (
             <div>
-                <button data-tip={t('buttons.removeChair')} className='btn btn-danger btn-sm' onClick={handleRemove}>
-                    <i className="fa fa-trash" aria-hidden="true"/>
-                </button>
+                {isSingleSelection(selectedEntities) ? renderRemoveChairButton() : null}
+                {isTableAndChairSwitchPossible() ? renderSwitchChairButton() : null}
             </div>
         );
     };
@@ -69,7 +107,9 @@ ContextMenu.propTypes = {
     }),
     t: PropTypes.func,
     onRemove: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired
+    onAdd: PropTypes.func.isRequired,
+    onSwitch: PropTypes.func.isRequired,
+    selectedEntities: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default ContextMenu;

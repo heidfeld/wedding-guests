@@ -21,8 +21,9 @@ export const handleSelection = (id, updateCallback, evt) => {
     const {evt: {ctrlKey} = {}} = evt;
     if (ctrlKey === true) {
         updateCallback(id, true);
+    } else {
+        updateCallback(id);
     }
-    updateCallback(id);
     evt.cancelBubble = true;
 };
 

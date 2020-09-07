@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import DiagramElements from './DiagramElements';
-import {isRectTable, isRoundTable, isTable, TYPES} from './TypeConstants';
+import {isChair, isRectTable, isRoundTable, isTable, TYPES} from './TypeConstants';
 import ContextMenu from '../../components/ContextMenu/ContextMenu';
 import './less/WeddingGuests.less';
 import DefaultMenu from '../../components/ContextMenu/DefaultMenu';
-import {getAllChairs} from './DataHelper';
+import {getAllChairs, getSelectedEntities} from './DataHelper';
 import DockedPanel from '../../components/DockedPanel/DockedPanel';
 import {PANEL_SIDE} from '../../components/DockedPanel/PanelConstants';
 import GuestTable from '../../widgets/GuestTable/GuestTable';
@@ -95,7 +95,7 @@ const WeddingGuests = (props) => {
     };
 
     const withMenu = () => {
-        return selectedObjects.length === 1;
+        return !!selectedObjects.length;
     };
 
     const getFirstSelected = () => {
@@ -178,12 +178,27 @@ const WeddingGuests = (props) => {
         }
     };
 
+    const onSwitch = () => {
+        const selectedEntities = getSelectedEntities(selectedObjects, data);
+        const selectedTable = selectedEntities.find(({type}) => isTable(type));
+        const selectedChair = selectedEntities.find(({type}) => isChair(type));
+        if (selectedTable && selectedChair) {
+            const {id: tableId} = selectedTable;
+            const {id: chairId} = selectedChair;
+            const dataCopy = {...data};
+            dataCopy[chairId] = {...(dataCopy[chairId] || {}), parent: tableId};
+            setData(dataCopy);
+        }
+    };
+
     const renderContextMenu = () => {
         return (
             <ContextMenu
                 data={getFirstSelected()}
+                selectedEntities={getSelectedEntities(selectedObjects, data)}
                 onRemove={onRemove}
                 onAdd={onAdd}
+                onSwitch={onSwitch}
                 t={t}
             />
         );
@@ -211,7 +226,7 @@ const WeddingGuests = (props) => {
 
     return (
         <div>
-            {withMenu() === true ? renderContextMenu() : renderDefaultMenu()}
+            {withMenu() ? renderContextMenu() : renderDefaultMenu()}
             <div id="container" ref={containerRef}>
                 <DockedPanel side={PANEL_SIDE.RIGHT} parentHeight={height} parentWidth={width} t={t}>
                     {renderGuestTable()}
@@ -243,7 +258,8 @@ WeddingGuests.defaultProps = {
 };
 
 WeddingGuests.propTypes = {
-    t: PropTypes.func
+    t: PropTypes.func,
+    selectedObjects: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = (state = {}, props) => {
